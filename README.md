@@ -13,7 +13,7 @@ This software, written for esp8266 (NodeMCU 0.9 (ESP-12 Module), simply reads th
     
 There is no attempt to calibrate the device.
 
-#To Do:
+# To Do:
 
     Calibrate the sensor
 
