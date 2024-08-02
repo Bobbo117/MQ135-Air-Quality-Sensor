@@ -12,3 +12,9 @@ This software, written for esp8266 (NodeMCU 0.9 (ESP-12 Module), simply reads th
     Home Assistant 
     
 There is no attempt to calibrate the device.
+
+#To Do:
+
+    Calibrate the sensor
+
+    Integrate the MQ-2, 3, 4, 5, 6, 7, 8, 9 sensors
