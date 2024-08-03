@@ -28,7 +28,7 @@ Examples of MQ135 measurements:
     Inside Maine windws shut    3200
     Maine basement 9,000 - 30,000
 
-Shark Clean Sense IQ HP102 Air Purifier in basement indicates 97 - 100 % clean air    
+Shark Clean Sense IQ Model HP102 Air Purifier in basement indicates 97 - 100 % clean air    
 
 
 # Someday:
