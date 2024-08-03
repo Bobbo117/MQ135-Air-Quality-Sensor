@@ -25,7 +25,7 @@ Examples of MQ135 measurements:
     Inside Florida windows shut 3500
     Outside Maine hot humid day 1200
     Inside Maine windows open   2200
-    Inside Maine windws shut    3200
+    Inside Maine windows shut   3200
     Maine basement 9,000 - 30,000
 
 Shark Clean Sense IQ Model HP102 Air Purifier in basement indicates 97 - 100 % clean air    
