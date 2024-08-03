@@ -1,6 +1,5 @@
-//for esp8266 (NodeMCU 0.9 (ESP-12 Module)
 
-#define VERSION "MQ135_Air_Quality_2024_08"
+#define VERSION "MQ135_Air_Quality_2024_0803"
 
 /*
   This software simply reads the analog pin from the MQ-135 and displays the raw value on:
@@ -36,6 +35,8 @@
 */
 ////////////////////////////////////////////////////////////////////
 
+//Tested on esp8266 (NodeMCU 0.9 (ESP-12 Module)
+
 //Sensor stuff
 #include "MQ135.h"
 
@@ -61,7 +62,7 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 #define TIMEZONE_EEPROM_OFFSET 0                     // location-to-timezone info - saved in case eztime server is down
 Timezone myTZ;
 
-//MQTT stuff
+//MQTT stuff for Home Assistant
 #include <PubSubClient.h>
 PubSubClient mqttClient(client);
 #define MQTT_USER_NAME SECRET_MQTT_USER_NAME         
@@ -149,6 +150,7 @@ void callback(char *topic, byte *payload, unsigned int length)
 //   ***********************
 void setup()
 {
+
   Serial.begin(115200);
 
   //Setup OLED Display
@@ -196,17 +198,18 @@ void setup()
 //   ***********************
 //   **  loop()  **
 //   ***********************
-  void loop()
-  {
+void loop()
+{
+  
   //****Read air quality sensor
   MQ135 gasSensor = MQ135(A0);
   float air_quality = gasSensor.getPPM();
   Serial.print("Air Quality: ");  
   Serial.print(air_quality);
-  Serial.println("  PPM");   
+  Serial.println("  AQI");   
   Serial.println();
 
-  //****Display AQI value
+  //****Display AQI value on OLED
   display.clearDisplay();
   display.setCursor(0,0);  //oled display
   display.setTextSize(1);
@@ -218,7 +221,7 @@ void setup()
   display.print(air_quality);
   display.setTextSize(1);
   display.setTextColor(WHITE);
-  display.println(" PPM");
+  display.println(" AQI");
   display.display();
 
   //****Make sure mqtt is connected
@@ -242,41 +245,37 @@ void setup()
     mqttClient.loop();
   }
   
-  //****Publish AQI
-    lastPublishNow = millis();
-   // if (  ( ((unsigned long)(lastPublishNow - lastPublish) > idlePublishInterval_MS) ||
-     //   ((fabs(psiTminus1 - psiTminus0) > opParams.sptPressureDrop) && (lastPublishNow - lastPublish >= minPublishInterval_MS)) ) &&
-   //     mqttClient.connected()  )
-    if(mqttClient.connected() ){
-      sprintf(msg, "%.2f", air_quality);
-      mqttClient.publish(MQ135_TOPIC, msg, true);
-      lastPublish = millis();
-    //}  
-    }      
+  //****Publish MQTT for Home Assistant
+  lastPublishNow = millis();
+  if(mqttClient.connected() ){
+    sprintf(msg, "%.2f", air_quality);
+    mqttClient.publish(MQ135_TOPIC, msg, true);
+    lastPublish = millis(); 
+  }      
 
-    //****Publish Thingspeak
-    if (client.connect(server, 80)) // "184.106.153.149" or api.thingspeak.com
-    {
-      String postStr = THINGSPEAK_API_KEY;
-      postStr += "&field1=";
-      postStr += String(air_quality);
-      postStr += "r\n";
-      
-      client.print("POST /update HTTP/1.1\n");
-      client.print("Host: api.thingspeak.com\n");
-      client.print("Connection: close\n");
-      client.print("X-THINGSPEAKAPIKEY: " + THINGSPEAK_API_KEY + "\n");
-      client.print("Content-Type: application/x-www-form-urlencoded\n");
-      client.print("Content-Length: ");
-      client.print(postStr.length());
-      client.print("\n\n");
-      client.print(postStr);
-      
-      Serial.println("Data Sent to Thingspeak");
-    }
-    client.stop();
-    Serial.println("Waiting...");
+  //****Publish Thingspeak
+  if (client.connect(server, 80)) // "184.106.153.149" or api.thingspeak.com
+  {
+    String postStr = THINGSPEAK_API_KEY;
+    postStr += "&field1=";
+    postStr += String(air_quality);
+    postStr += "r\n";
+    
+    client.print("POST /update HTTP/1.1\n");
+    client.print("Host: api.thingspeak.com\n");
+    client.print("Connection: close\n");
+    client.print("X-THINGSPEAKAPIKEY: " + THINGSPEAK_API_KEY + "\n");
+    client.print("Content-Type: application/x-www-form-urlencoded\n");
+    client.print("Content-Length: ");
+    client.print(postStr.length());
+    client.print("\n\n");
+    client.print(postStr);
+    
+    Serial.println("Data Sent to Thingspeak");
+  }
 
-    //****Pause to throttle data rate thingspeak needs minimum 15 sec delay between updates.
-    delay(reportPeriod_msec);
+  //****Pause to throttle data rate thingspeak needs minimum 15 sec delay between updates.
+  client.stop();
+  Serial.println("Waiting...");
+  delay(reportPeriod_msec);
 }
