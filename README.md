@@ -1,17 +1,14 @@
 # ReadMe
-Read and display the analog pin of MQ135 Air Quality Sensor 
+  This software incorporates the MQ135 library to do perform two functions:
+  1. When the #define CALIBRATE statement is active, calibarate the MQ135 sensor 
+  2. When the #define CALIBRATE statement is inactive, read the MQ135 sensor and report the CO2 ppm data on the following platforms:
+  
+    computer monitor via USB connection
+    OLED display via I2C connection
+    Thingspeak.com via WIFI
+    Home Assistant via WIFI and MQTT
 
-This software, written for esp8266 (NodeMCU 0.9 (ESP-12 Module), simply reads the analog pin from the MQ-135 and displays the raw value on:
-
-    Computer monitor
-    
-    OLED display
-    
-    Thingspeak
-    
-    Home Assistant 
-    
-There is no attempt to calibrate the device.
+  NOTE - The device automatically ignores the platforms for which it is not credentialed or connected
 
 The MQ sensor family can be procured here:
 
