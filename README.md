@@ -44,16 +44,16 @@ Are these measurement accurate?  I don't know.  Are they useful? I think so, bec
 # Hardware Connections:
 
 MQ135 pins:
-  VCC to esp8266 Vcc (5v)
-  GND to esp8266 GND
-  A0 to esp8266 A0 via 1K resistor *
-  D0 unused
+    VCC to esp8266 Vcc (5v)
+    GND to esp8266 GND
+    A0 to esp8266 A0 via 1K resistor *
+    D0 unused
 
 OLED Display pins (optional):
-  VCC to esp8266 3.3v 
-  GND to esp8266 GND
-  SDA to esp8266 SDA
-  SCL to esp8266 SCL
+    VCC to esp8266 3.3v 
+    GND to esp8266 GND
+    SDA to esp8266 SDA
+    SCL to esp8266 SCL
 
 Power ESP8266 via USB connection with computer or power supply.
 
