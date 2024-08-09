@@ -1,6 +1,7 @@
 # ReadMe
   The MQ135 sensor detects ([datasheet](https://www.olimex.com/Products/Components/Sensors/Gas/SNS-MQ135/resources/SNS-MQ135.pdf)) uses the presence of certain gases to change the electrical resistance of the sensor.  
-  Though the datasheet only indiccates operation to 200 ppm, the MQ135 properties suggest utility as a CO2 detector.
+  Though the datasheet only specifies sensitivity characteristics to 200 ppm, the MQ135 properties suggest utility as a CO2 detector.  For comparison, consider that CO2.Earth indicates clean outside air contains around 400 ppm CO2; inside air can reach 1000 ppm 
+  easily.
   
   The MQ sensor family can be procured here:
 
