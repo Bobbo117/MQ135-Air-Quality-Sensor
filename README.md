@@ -1,7 +1,7 @@
 # ReadMe
   This software incorporates the MQ135 library to perform two functions:
   1. When the #define CALIBRATE statement is active, calibrate the MQ135 sensor by running the system outdoors for a couple hours
-     to attain a reference resistance R0 for fresh air.  This value replaces the number in the software statemnent '#define RZERO 51.5'        
+     to attain a reference resistance R0 for fresh air.  Replace the number in the software statement '#define RZERO 51.5' with the new value.        
   2. When the #define CALIBRATE statement is inactivated by commenting it out, read the MQ135 sensor and report the CO2 ppm data on the following platforms:
   
     a. computer monitor via USB Arduino
@@ -12,7 +12,7 @@
   
     d. Home Assistant via MQTT
 
-  NOTE - The software automatically ignores the platforms for which it is not credentialed or connected
+  NOTE - The software ignores the platforms for which it is not credentialed or connected
 
 The MQ sensor family can be procured here:
 
@@ -28,12 +28,13 @@ Examples of MQ135 measurements after calibration (Calibration outside conditions
     Maine basement - quiet     1450 ppm
     Maine basement - humidex   1320 ppm 
 
-    (humidex is an air exchanger which introduces fresh air to the basement)
-    Maine basement - dehumidifier on 1650 ppm initially, settling to 1375 ppm steady state
+(Humidex is an air exchanger which introduces fresh air to the basement)
+
+Maine basement - dehumidifier on 1650 ppm initially, settling to 1375 ppm steady state when the humidex is on first.
     
 Shark Clean Sense IQ Model HP102 Air Purifier in basement indicates 97 - 100 % clean air    
 
-The measurements confirm the concensus that these sensors are useful for reflecting gas concentration trends, not precise concentrations.  
+Are these measurement accurate?  I don't know.  However, they reflect trends if not precise concentrations.  
 
 # Someday:
 
