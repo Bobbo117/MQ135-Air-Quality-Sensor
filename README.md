@@ -21,7 +21,7 @@
   
     d. Home Assistant via MQTT
 
-  NOTEs 
+  NOTES 
   
   1. The software ignores the platforms for which it is not credentialed or connected.
   2. The MQ135 must be powered on for 24 hours before first use.
