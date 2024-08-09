@@ -1,13 +1,13 @@
 # ReadMe
   This software incorporates the MQ135 library to perform two functions:
   1. When the #define CALIBRATE statement is active, calibrate the MQ135 sensor by running the system outdoors for a couple hours
-     to attain a reference resistance R0 for fresh air.  This 
-  3. When the #define CALIBRATE statement is inactive, read the MQ135 sensor and report the CO2 ppm data on the following platforms:
+     to attain a reference resistance R0 for fresh air.  This value replaces the number in the software statemnent '#define RZERO 51.5'        
+  3. When the #define CALIBRATE statement is inactivated by commenting it out, read the MQ135 sensor and report the CO2 ppm data on the following platforms:
   
-  computer monitor via USB connection
-  OLED display via I2C connection
-  Thingspeak.com via WIFI
-  Home Assistant via WIFI and MQTT
+  a. computer monitor via USB connection
+  b. OLED display via I2C connection
+  c. Thingspeak.com via WIFI
+  d. Home Assistant via WIFI and MQTT
 
   NOTE - The software automatically ignores the platforms for which it is not credentialed or connected
 
@@ -24,7 +24,7 @@ Examples of MQ135 measurements after calibration:
     
     Maine basement - appliances off  1700 ppm (6 am, appliances off overnight)
     Maine basement - humidex on      1500 ppm (humidex is an air exchanger which introduces fresh air to the basement)
-    Maine basement - dehumidifier on 1800 ppm
+    Maine basement - dehumidifier on 1800 ppm initiallly, settling to 
     
 Shark Clean Sense IQ Model HP102 Air Purifier in basement indicates 97 - 100 % clean air    
 
