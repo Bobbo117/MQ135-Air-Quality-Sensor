@@ -1,5 +1,6 @@
 # ReadMe
   The MQ135 sensor ([datasheet](https://www.olimex.com/Products/Components/Sensors/Gas/SNS-MQ135/resources/SNS-MQ135.pdf)) uses the presence of certain gases to change the electrical resistance of the sensor.  
+  
   Though the datasheet only specifies sensitivity characteristics to 200 ppm, the MQ135 properties suggest utility as a CO2 detector.  For comparison, consider that the [CO2.Earth](co2.earth) website indicates clean outside air contains around 400 ppm CO2, and 
   inside air can exceed 1000 ppm easily.
   
@@ -39,6 +40,20 @@ Maine basement dehumidifier on - 2300 ppm initially, settling to 1375 ppm steady
 Shark Clean Sense IQ Model HP102 Air Purifier in basement indicates 97 - 100 % clean air    
 
 Are these measurement accurate?  I don't know.  Are they useful? I think so, because they reflect trends if not precise concentrations.  
+
+# Hardware Connections:
+
+MQ135:
+esp8266 Vcc 5v to MQ135 VCC
+esp8266 Vcc GND to MQ135 GND
+esp8266 A0 to 1K resistor, other end of resistor to MQ135 A0
+esp8266 USB to laptop, PC, or other USB power source
+
+OLED Display (optional):
+esp8266 Vcc 3.3v to OLED VCC
+esp8266 GND to OLED GND
+esp8266 SDA to OLED SDA
+esp8266 SCL to OLED SCL
 
 # Someday:
 
