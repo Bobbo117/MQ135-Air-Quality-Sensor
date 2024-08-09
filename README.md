@@ -1,12 +1,13 @@
 # ReadMe
   This software incorporates the MQ135 library to perform two functions:
-  1. When the #define CALIBRATE statement is active, calibarate the MQ135 sensor 
-  2. When the #define CALIBRATE statement is inactive, read the MQ135 sensor and report the CO2 ppm data on the following platforms:
+  1. When the #define CALIBRATE statement is active, calibrate the MQ135 sensor by running the system outdoors for a couple hours
+     to attain a reference resistance R0 for fresh air.  This 
+  3. When the #define CALIBRATE statement is inactive, read the MQ135 sensor and report the CO2 ppm data on the following platforms:
   
-    computer monitor via USB connection
-    OLED display via I2C connection
-    Thingspeak.com via WIFI
-    Home Assistant via WIFI and MQTT
+  computer monitor via USB connection
+  OLED display via I2C connection
+  Thingspeak.com via WIFI
+  Home Assistant via WIFI and MQTT
 
   NOTE - The software automatically ignores the platforms for which it is not credentialed or connected
 
