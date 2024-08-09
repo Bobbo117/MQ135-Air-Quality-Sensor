@@ -21,7 +21,10 @@
   
     d. Home Assistant via MQTT
 
-  NOTE - The software ignores the platforms for which it is not credentialed or connected.
+  NOTEs 
+  
+  1. The software ignores the platforms for which it is not credentialed or connected.
+  2. The MQ135 must be powered on for 24 hours before first use.
 
 Examples of MQ135 measurements after calibration (Calibration outside conditions approximate CO2.Earth website. Inside conditions include 2 persons):
 
