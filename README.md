@@ -53,6 +53,8 @@ MQ135 pins:
     A0 to esp8266 A0 via 1K resistor *
     D0 unused
 
+* 1K series resistor or voltage divider is used to reduce MQ135 5v output from A0 to ESP8266 3.3v input.
+  
 OLED Display pins (optional):
 
     VCC to esp8266 3.3v 
@@ -61,8 +63,6 @@ OLED Display pins (optional):
     SCL to esp8266 SCL
 
 Power ESP8266 via USB connection with computer or power supply.
-
-* 1K series resistor or voltage divider is used to reduce MQ135 5v output to ESP8266 3.3v input.
 
 # Someday:
 
