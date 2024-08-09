@@ -5,9 +5,12 @@
   3. When the #define CALIBRATE statement is inactivated by commenting it out, read the MQ135 sensor and report the CO2 ppm data on the following platforms:
   
   a. computer monitor via USB connection
+  
   b. OLED display via I2C connection
+  
   c. Thingspeak.com via WIFI
-  d. Home Assistant via WIFI and MQTT
+  
+  d. Home Assistant via MQTT
 
   NOTE - The software automatically ignores the platforms for which it is not credentialed or connected
 
