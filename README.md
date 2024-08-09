@@ -43,17 +43,21 @@ Are these measurement accurate?  I don't know.  Are they useful? I think so, bec
 
 # Hardware Connections:
 
-MQ135:
-esp8266 Vcc 5v to MQ135 VCC
-esp8266 Vcc GND to MQ135 GND
-esp8266 A0 to 1K resistor, other end of resistor to MQ135 A0
-esp8266 USB to laptop, PC, or other USB power source
+MQ135 pins:
+  VCC to esp8266 Vcc (5v)
+  GND to esp8266 GND
+  A0 to esp8266 A0 via 1K resistor *
+  D0 unused
 
-OLED Display (optional):
-esp8266 Vcc 3.3v to OLED VCC
-esp8266 GND to OLED GND
-esp8266 SDA to OLED SDA
-esp8266 SCL to OLED SCL
+OLED Display pins (optional):
+  VCC to esp8266 3.3v 
+  GND to esp8266 GND
+  SDA to esp8266 SDA
+  SCL to esp8266 SCL
+
+Power ESP8266 via USB connection with computer or power supply.
+
+* 1K series resistor or voltage divider is used to reduce MQ135 5v output to ESP8266 3.3v input.
 
 # Someday:
 
