@@ -12,7 +12,7 @@
   
     d. Home Assistant via MQTT
 
-  NOTE - The software ignores the platforms for which it is not credentialed or connected
+  NOTE - The software ignores the platforms for which it is not credentialed or connected.
 
 The MQ sensor family can be procured here:
 
@@ -30,12 +30,14 @@ Examples of MQ135 measurements after calibration (Calibration outside conditions
 
 (Humidex is an air exchanger which introduces fresh air to the basement)
 
-Maine basement - dehumidifier on 1650 ppm initially, settling to 1375 ppm steady state when the humidex is on first.
+Maine basement - dehumidifier on 1650 ppm initially, settling to 1375 ppm steady state when the humidex catches up to the new blast of exhaust from the dehumidifier.
     
 Shark Clean Sense IQ Model HP102 Air Purifier in basement indicates 97 - 100 % clean air    
 
-Are these measurement accurate?  I don't know.  However, they reflect trends if not precise concentrations.  
+Are these measurement accurate?  I don't know.  Are they useful? I think so, because they reflect trends if not precise concentrations.  
 
 # Someday:
 
+    Determine accuracy
+    
     Integrate the MQ-2, 3, 4, 5, 6, 7, 8, 9 sensors
