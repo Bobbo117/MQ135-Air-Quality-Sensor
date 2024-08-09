@@ -1,5 +1,5 @@
 # ReadMe
-  The MQ135 sensor detects uses the presence of certain gases to change the electrical resistance of the sensor.  Its properties suggest utility as a CO2 detector.
+  The MQ135 sensor detects (datasheet) uses the presence of certain gases to change the electrical resistance of the sensor.  Its properties suggest utility as a CO2 detector.
   The MQ sensor family can be procured here:
 
 https://www.amazon.com/dp/B0978KXFCQ/ref=sspa_dk_detail_1?pd_rd_i=B0978KXFCQ&pd_rd_w=Rdxbx&content-id=amzn1.sym.8c2f9165-8e93-42a1-8313-73d3809141a2&pf_rd_p=8c2f9165-8e93-42a1-8313-73d3809141a2&pf_rd_r=3DREN4AM4GMVXSB16463&pd_rd_wg=sWHBk&pd_rd_r=c1e97e35-5eb3-4f6e-9ffd-abd54153791b&s=industrial&sp_csd=d2lkZ2V0TmFtZT1zcF9kZXRhaWw&th=1
