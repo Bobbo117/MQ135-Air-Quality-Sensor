@@ -38,6 +38,6 @@ Are these measurement accurate?  I don't know.  Are they useful? I think so, bec
 
 # Someday:
 
-    Determine accuracy
+Determine accuracy
     
-    Integrate the MQ-2, 3, 4, 5, 6, 7, 8, 9 sensors
+Integrate the MQ-2, 3, 4, 5, 6, 7, 8, 9 sensors
