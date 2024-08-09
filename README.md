@@ -13,7 +13,7 @@
            
   2. When the #define CALIBRATE statement is inactivated by commenting it out, read the MQ135 sensor and report the CO2 ppm data on the following platforms:
   
-    a. computer monitor via USB Arduino
+    a. computer monitor via USB Arduino IDE
   
     b. OLED display via I2C
   
