@@ -26,9 +26,9 @@
   1. The software ignores the platforms for which it is not credentialed or connected.
   2. The MQ135 must be powered on for 24 hours before first use.
 
-Examples of MQ135 measurements after calibration (Calibration outside conditions approximate CO2.Earth website. Inside conditions include 2 persons):
+Examples of MQ135 measurements after calibration (Calibration outside conditions approximate the [CO2.Earth](co2.earth) website. Inside conditions include 2 persons):
 
-    Outside Maine - 75 F 63% RH 415 ppm 
+    Outside Maine - 75 F 63% RH 415 ppm
     Maine Kithen - windows open 550 ppm
     Maine Kithen - windows shut 800 ppm
     Maine Kithen - stove on    1500 ppm     
