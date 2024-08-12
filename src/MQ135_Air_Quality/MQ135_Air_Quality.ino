@@ -1,5 +1,5 @@
 
-#define VERSION "MQ135_Air_Quality_2024_0807"
+#define VERSION "MQ135_Air_Quality_2024_0810"
 
 /*
   This software incorporates the MQ135 library to do perform two functions:
@@ -39,8 +39,9 @@
 ////////////////////////////////////////////////////////////////////
 
 //Tested on esp8266 (NodeMCU 0.9 (ESP-12 Module)
-
+//#include "Arduino.h"
 //#define CALIBRATE         // Comment out if not in calibration mode
+
 #define PIN_MQ135 A0      // Analog pin on the ESP8266, ESP32, etc which connects to the analog output of the sesor. 
 #define RZERO 51.5        // Measured resistance from calibration (8/8/2024 75F, 63% RH in my case)
 unsigned long reportPeriod_msec = 15000;        // Report period in msec
@@ -80,6 +81,7 @@ PubSubClient mqttClient(client);
 #define DEVICE_NAME "mq135"
 #define LWT_TOPIC "mq135/status/LWT"             // MQTT Last Will & Testament
 #define MQ135_TOPIC "aqi/mq135"
+#define MQ135_ADC_TOPIC "aqi/adc"
 #define VERSION_TOPIC "mq135/report/version"     // report software version at connect
 #define RECV_COMMAND_TOPIC "mq135/cms/#"
 #define MSG_BUFFER_SIZE 512                          // for MQTT message payload (growth)
@@ -208,20 +210,23 @@ void setup()
 //   ***********************
 void loop()
 {
+  //****Read voltage from A0 pin
+  float ADC = analogRead(PIN_MQ135);
+
+  //print to Serial Monitor
   #ifdef CALIBRATE
     //****Read R Zero
     float value = gasSensor.getRZero();
     Serial.print("R Zero Ohms: ");  
     Serial.println(value);
-//    Serial.println();
   #else
      //****Read air quality sensor
     float value = gasSensor.getPPM();
     Serial.print("Air Quality: "); 
     Serial.println(value);
-//    Serial.println();
-    Serial.print("Resistance: "); 
   #endif
+  Serial.print("ADC: "); 
+  Serial.println(ADC);
   
   //****Display AQI value on OLED
   display.clearDisplay();
@@ -235,15 +240,20 @@ void loop()
   #endif  
   display.setCursor(0,20);  //oled display
   display.setTextSize(2);
-  display.setTextColor(WHITE);
+  display.setTextColor(WHITE);  
   display.println(value);
-  display.setTextSize(1);
-  display.setTextColor(WHITE);
-  #ifdef CALIBRATE
-   display.println(" OHMS");
-  #endif
-//  display.display();
+//  display.setTextSize(1);
+ // display.setTextColor(WHITE);
+//  #ifdef CALIBRATE
+//    display.println(" OHMS");
+//  #else
+//    display.println(" PPM");
+//  #endif
+  display.print("A:"); 
+  display.println(ADC);
+  display.display();
 
+  
   //***verify mqtt connection
   if (!mqttClient.connected())
   {
@@ -270,6 +280,9 @@ void loop()
   if(mqttClient.connected() ){
     sprintf(msg, "%.2f", value);
     mqttClient.publish(MQ135_TOPIC, msg, true);
+    sprintf(msg, "%.2f", value);
+    mqttClient.publish(MQ135_ADC_TOPIC, msg, true);
+    
     lastPublish = millis(); 
   }      
 
