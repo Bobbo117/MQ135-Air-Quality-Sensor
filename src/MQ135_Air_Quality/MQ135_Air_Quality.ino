@@ -43,12 +43,14 @@
 //#define CALIBRATE         // Comment out if not in calibration mode
 
 #define PIN_MQ135 A0      // Analog pin on the ESP8266, ESP32, etc which connects to the analog output of the sesor. 
-#define RZERO 51.5        // Measured resistance from calibration (8/8/2024 75F, 63% RH in my case)
+#define RZERO 51.5         // Measured resistance from calibration (8/8/2024 75F, 63% RH in my case)
+//#define RLOAD 2610        // Measured resistance pin A0 to Gnd (not used)
 unsigned long reportPeriod_msec = 15000;        // Report period in msec
 
 //Sensor stuff
 #include "MQ135.h"
 MQ135 gasSensor(PIN_MQ135, RZERO);
+//MQ135 gasSensor(PIN_MQ135, RZERO, RLOAD);
 
 //Wifi stuff:
 #include <ESP8266WiFi.h>
@@ -213,6 +215,10 @@ void loop()
   //****Read voltage from A0 pin
   float ADC = analogRead(PIN_MQ135);
 
+  //***Read Sensor Resistance
+  float R_Sensor = gasSensor.getResistance();
+  // float R_Sensor = (1023.0/ADC -1.0)*RLOAD;
+              
   //print to Serial Monitor
   #ifdef CALIBRATE
     //****Read R Zero
@@ -225,6 +231,8 @@ void loop()
     Serial.print("Air Quality: "); 
     Serial.println(value);
   #endif
+  Serial.print("R_Sensor: "); 
+  Serial.println(R_Sensor);
   Serial.print("ADC: "); 
   Serial.println(ADC);
   
