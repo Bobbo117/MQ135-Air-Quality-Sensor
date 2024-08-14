@@ -44,13 +44,12 @@
 
 #define PIN_MQ135 A0      // Analog pin on the ESP8266, ESP32, etc which connects to the analog output of the sesor. 
 #define RZERO 51.5         // Measured resistance from calibration (8/8/2024 75F, 63% RH in my case)
-//#define RLOAD 2610        // Measured resistance pin A0 to Gnd (not used)
+#define RLOAD 1.612        // Measured resistance Kohms pin A0 to Gnd with power off
 unsigned long reportPeriod_msec = 15000;        // Report period in msec
 
 //Sensor stuff
 #include "MQ135.h"
 MQ135 gasSensor(PIN_MQ135, RZERO);
-//MQ135 gasSensor(PIN_MQ135, RZERO, RLOAD);
 
 //Wifi stuff:
 #include <ESP8266WiFi.h>
