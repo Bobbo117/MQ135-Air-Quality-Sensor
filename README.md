@@ -73,7 +73,7 @@ The MQ135 board has several components, including the MQ135 sensor, a power LED,
 
 It is worth noting that the value of RL plays no role in calculating the AQI, because the AQI is calculated using the ratio Rs (sensor resistance in normal environment) and Ro (sensor resistance in clean air): 
 The voltage divider relationship is VL/Vcc = RL/(RL + Rs).  Solving for Rs yields Rs = RL(Vcc/Vs - 1).  So the initial resistance Ro = RL(VCC/Vo-1).  The quantity Rs/Ro results in RL being cancelled out because is is in the numerator and denominator. Yay!
-That said, the measured value of RL needs to be entered in the software becuasse it is used to measure Rs.
+That said, the measured value of RL in KOhms needs to be entered in the software becuasse it is used to measure Rs.
 
 Finally, the esp8266 or esp32 used for this project needs to be 10 bits if you want to use the getResistance command beccause the library uses the max value 1023 instead of Vcc in the calculation.
 
