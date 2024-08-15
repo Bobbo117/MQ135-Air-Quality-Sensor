@@ -5,8 +5,8 @@
   outside air contains above 400 ppm CO2.  Inside air can exceed 1000 ppm easily.
 
 # MQ135 Board Concept of Operation
-1. Measure the load resistance between the A0 and GND pin of the MQ135 board (without power applied).  Mine measures 1720 ohms (1.720 Kohm). This load resistor is not variable.
-2. Next, measure the sensor resistance between the VCC and GND pin.  Mine measures 1750 ohms (1.750 Kohms).  These two resistors form a voltage divider between Vcc and GND whose midpoint is pin A0.
+1. Measure the sensor resistance between the VCC and GND pin.  Mine measures 1750 ohms (1.750 Kohms).  
+2. Measure the load resistance between the A0 and GND pin of the MQ135 board (without power applied).  Mine measures 1720 ohms (1.720 Kohm). These two resistors form a voltage divider between Vcc and GND whose midpoint is pin A0.  YOU WILL NEED TO ENTER THIS VALUE IN KOHMS FOR THE #DEFINE RLOAD STATEMENT IN THE SOFTWARE.
 
 When the unit is powered up, the sensor resistance decreases as the concentration of detected gases (mostly CO2 hopefully) increases, causing the voltage across the load resistance at pin A0 to increase.
 
