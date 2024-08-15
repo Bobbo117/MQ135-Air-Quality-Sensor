@@ -1,15 +1,16 @@
 # ReadMe
   The MQ135 sensor ([datasheet](https://www.olimex.com/Products/Components/Sensors/Gas/SNS-MQ135/resources/SNS-MQ135.pdf)) uses the presence of certain gases to change the electrical resistance of the sensor.  
   
-  Though the datasheet only specifies sensitivity characteristics to 200 ppm, the MQ135 properties suggest utility as a CO2 detector as well as a geneeral air quality monitor.  For comparison, consider that the [CO2.Earth](co2.earth) website indicates clean 
-  outside air contains around 400 ppm CO2, and inside air can exceed 1000 ppm easily.
-  
-  The MQ sensor family can be procured [here.](https://www.amazon.com/dp/B0978KXFCQ/ref=sspa_dk_detail_1?pd_rd_i=B0978KXFCQ&pd_rd_w=Rdxbx&content-id=amzn1.sym.8c2f9165-8e93-42a1-8313-73d3809141a2&pf_rd_p=8c2f9165-8e93-42a1-8313-73d3809141a2&pf_rd_r=3DREN4AM4GMVXSB16463&pd_rd_wg=sWHBk&pd_rd_r=c1e97e35-5eb3-4f6e-9ffd-abd54153791b&s=industrial&sp_csd=d2lkZ2V0TmFtZT1zcF9kZXRhaWw&th=1)
+  Though the datasheet only specifies sensitivity characteristics to 200 ppm, the MQ135 properties suggest utility as a CO2 detector as well as a general air quality monitor.  For comparison, consider that the [CO2.Earth]([co2.earth](https://www.co2.earth/)) website indicates clean 
+  outside air contains above 400 ppm CO2.  Inside air can exceed 1000 ppm easily.
 
-1. Measure the load resistance between the A0 and GND pin of the MQ135 board (without power applied).  Mine measures 1720 ohms (1.720 Kohm).
+# Operation Concept  
+1. Measure the load resistance between the A0 and GND pin of the MQ135 board (without power applied).  Mine measures 1720 ohms (1.720 Kohm). This load resistor is not variable.
 2. Next, measure the sensor resistance between the VCC and GND pin.  Mine measures 1750 ohms (1.750 Kohms).  These two resistors form a voltage divider whose midpoint is pin A0.
 
 When the unit is powered up, the sensor resistance decreases as the concentration of detected gases (mostly CO2 hopefully) increases, causing the voltage across the load resistance at pin A0 to increase.
+
+Additional board circuitry enables setting a potentiometer to determine the level at which the D0 pin and LED trigger.
 
 # Hardware Connections
 
@@ -56,7 +57,7 @@ Power ESP8266 via USB connection.
 
 # Results
 
-Examples of MQ135 measurements after calibration (Calibration outside conditions approximate the [CO2.Earth](co2.earth) website. Inside conditions include 2 persons):
+Examples of MQ135 measurements after calibration (Calibration outside conditions approximate the [CO2.Earth]([co2.earth](https://www.co2.earth/)) website. Inside conditions include 2 persons):
 
     Outside Maine - 75 F 63% RH 415 ppm
     Maine Kithen - windows open 550 ppm
