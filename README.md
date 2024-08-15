@@ -62,7 +62,7 @@ Examples of MQ135 measurements after calibration (Calibration outside conditions
     Outside Maine - 75 F 63% RH 415 ppm
     Maine Kithen - windows open 550 ppm
     Maine Kithen - windows shut 800 ppm
-    Maine Kithen - stove on    1500 ppm   
+    Maine Kithen - oven on    1500 ppm   
     
     Maine basement - quiet     1450 ppm
     Maine basement - humidex   1320 ppm
