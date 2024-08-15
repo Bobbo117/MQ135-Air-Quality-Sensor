@@ -11,7 +11,7 @@
 
 When the unit is powered up, the sensor resistance decreases as the concentration of detected gases (mostly CO2 hopefully) increases, causing the voltage across the load resistance at pin A0 to increase.
 
-# Hardware Connections:
+# Hardware Connections
 
 MQ135 pins:
 
@@ -31,15 +31,15 @@ OLED Display pins (optional):
 
 Power ESP8266 via USB connection.
 
-  
- 
+# Software
+
   This software incorporates the Arduino MQ135 library to perform two functions:
   
   1. When the #define CALIBRATE statement is active, calibrate the MQ135 sensor by running the system outdoors for a couple hours
      to attain a reference resistance R0 for fresh air.  Replace the number in the software statement '#define RZERO 51.5' with the new value.
      Consider using the EPA's AirNow App to verify the outside air quality.
            
-  3. When the #define CALIBRATE statement is inactivated by commenting it out, read the MQ135 sensor and report the CO2 ppm data on the following platforms:
+  2. When the #define CALIBRATE statement is inactivated by commenting it out, read the MQ135 sensor and report the CO2 ppm data on the following platforms:
   
     a. computer via USB to Arduino IDE
   
@@ -53,6 +53,8 @@ Power ESP8266 via USB connection.
   
   1. The software ignores the platforms for which it is not credentialed or connected.
   2. The MQ135 must be powered on for 24 hours before first use.
+
+# Results
 
 Examples of MQ135 measurements after calibration (Calibration outside conditions approximate the [CO2.Earth](co2.earth) website. Inside conditions include 2 persons):
 
@@ -75,9 +77,9 @@ Are these measurement accurate?  I don't know.  Are they useful? I think so, bec
 BREAKING NEWS UPDATE: Today the MQ135 was hovering around 12,000 and the Shark was indicating 78% (4, 18, & 21 ppm of pm1.0, pm2.5, & pm10).  I checked the EPA's AirNow App and found outside AQI is 60 (moderate) due to wildfires. Cool!
 
 
-# Discussion
+# Further Discussion
 
-The MQ135 board has several components, including the MQ135 sensor, a power LED, an alarm LED, a variable resistor to adjust the alarm level that triggers the alarm LED, a Load Resistor (RL), as well as some circuitry associated with the digital output.  Each board may be slightly different.  All resistance measurements in this discussion pertain to my specific board.  The MQ135 sensor itself has 6 pins labeled A,A B,B and H,H.  The H pins connect to the heater coil, which measures 35 ohms without power.  The A's are connected to each other, as are the B's.  They are the terminations for Rs, the sensor resistance.  The A's are connected to Vcc (5 volts).  The B's are connected to a board pin labeled A0 and to a fixed load resistor RL whose other end is connected to the ground pin of the board.  The characteristic curve shows that increasing ppm reduces sensor resistance.  The resistance of the sensor and the RL tied to A0 pin form a voltage divider whose voltage increases with increasing PPM (decreasing Rs).  The comparable Rs and RL values insure optimum use of the 10-bit A/D Converter. 
+The MQ135 board has several components, including the MQ135 sensor, a power LED, an alarm LED, a variable resistor to adjust the alarm level that triggers the alarm LED and the D0 pin, a Load Resistor (RL), as well as some circuitry associated with the digital output.  Each board may be slightly different.  All resistance measurements in this discussion pertain to my specific board.  The MQ135 sensor itself has 6 pins labeled A,A B,B and H,H.  The H pins connect to the heater coil, which measures 35 ohms without power.  The A's are connected to each other, as are the B's.  They are the terminations for Rs, the sensor resistance.  The A's are connected to Vcc (5 volts).  The B's are connected to a board pin labeled A0 and to a fixed load resistor RL whose other end is connected to the ground pin of the board.  The characteristic curve shows that increasing ppm reduces sensor resistance.  The resistance of the sensor and the RL tied to A0 pin form a voltage divider whose voltage increases with increasing PPM (decreasing Rs).  The comparable Rs and RL values insure optimum use of the 10-bit A/D Converter. 
 
 It is worth noting that the value of RL plays no role in calculating the AQI, because the AQI is calculated using the ratio Rs (sensor resistance in normal environment) and Ro (sensor resistance in clean air): 
 The voltage divider relationship is VL/Vcc = RL/(RL + Rs).  Solving for Rs yields Rs = RL(Vcc/Vs - 1).  So the initial resistance Ro = RL(VCC/Vo-1).  The quantity Rs/Ro results in RL being cancelled out because it is in the numerator and denominator. Yay!
