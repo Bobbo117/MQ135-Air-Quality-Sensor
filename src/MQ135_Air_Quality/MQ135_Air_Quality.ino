@@ -52,7 +52,6 @@ unsigned long reportPeriod_msec = 15000;        // Report period in msec
 //MQ135 gasSensor(PIN_MQ135, RZERO, RLOAD);
 MQ135 gasSensor(PIN_MQ135, RZERO);
 
-
 //Wifi stuff:
 #include <ESP8266WiFi.h>
 #define WIFI_SSID SECRET_WIFI_SSID  
