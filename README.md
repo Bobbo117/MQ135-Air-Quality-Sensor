@@ -6,7 +6,7 @@
 
 # MQ135 Board Concept of Operation
 1. Measure the sensor resistance between the VCC and GND pin.  Mine measures 1750 ohms (1.750 Kohms).  
-2. Measure the load resistance between the A0 and GND pin of the MQ135 board (without power applied).  Mine measures 1720 ohms (1.720 Kohm). These two resistors form a voltage divider between Vcc and GND whose midpoint is pin A0.  YOU WILL NEED TO ENTER THIS VALUE IN KOHMS FOR THE #DEFINE RLOAD STATEMENT IN THE SOFTWARE.
+2. Measure the load resistance between the A0 and GND pin of the MQ135 board (without power applied).  Mine measures 1720 ohms (1.720 Kohm). These two resistors form a voltage divider between Vcc and GND whose midpoint is pin A0.  YOU WILL NEED TO ENTER THIS VALUE IN KOHMS FOR THE #DEFINE RLOAD STATEMENT IN THE MQ135_Air_Quality.ino SOFTWARE.
 
 When the unit is powered up, the sensor resistance decreases as the concentration of detected gases (mostly CO2 hopefully) increases, causing the voltage across the load resistance at pin A0 to increase.
 
@@ -34,7 +34,7 @@ Power ESP8266 via USB connection.
 
 # Software
 
-  This software incorporates the Arduino MQ135 library to perform two functions:
+  The MQ135_Air_Quality.ino software incorporates the Arduino MQ135 library to perform two functions:
   
   1. When the #define CALIBRATE statement is active, calibrate the MQ135 sensor by running the system outdoors for a couple hours
      to attain a reference resistance R0 for fresh air.  Replace the number in the software statement '#define RZERO 51.5' with the new value.
