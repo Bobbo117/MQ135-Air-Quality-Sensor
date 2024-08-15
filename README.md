@@ -6,10 +6,32 @@
   
   The MQ sensor family can be procured [here.](https://www.amazon.com/dp/B0978KXFCQ/ref=sspa_dk_detail_1?pd_rd_i=B0978KXFCQ&pd_rd_w=Rdxbx&content-id=amzn1.sym.8c2f9165-8e93-42a1-8313-73d3809141a2&pf_rd_p=8c2f9165-8e93-42a1-8313-73d3809141a2&pf_rd_r=3DREN4AM4GMVXSB16463&pd_rd_wg=sWHBk&pd_rd_r=c1e97e35-5eb3-4f6e-9ffd-abd54153791b&s=industrial&sp_csd=d2lkZ2V0TmFtZT1zcF9kZXRhaWw&th=1)
 
-  There is a short story and a long story.  See the Discussion section below for the full explanation.  Here is the short story:
+1. Measure the load resistance between the A0 and GND pin of the MQ135 board (without power applied).  Mine measures 1720 ohms (1.720 Kohm).
+2. Next, measure the sensor resistance between the VCC and GND pin.  Mine measures 1750 ohms (1.750 Kohms).  These two resistors form a voltage divider whose midpoint is pin A0.
 
-  1. First thing you need to do is measure the resistance between the A0 and GND pin of the MQ135 board (without power applied).  Mine measures 1612 ohms (1.612 Kohm).
-  2. 
+When the unit is powered up, the sensor resistance decreases as the concentration of detected gases (mostly CO2 hopefully) increases, causing the voltage across the load resistance at pin A0 to increase.
+
+# Hardware Connections:
+
+MQ135 pins:
+
+    VCC to esp8266 Vcc (5v)
+    GND to esp8266 GND
+    A0 to esp8266 A0 via voltage divider *
+    D0 unused
+
+* 170K and 330k voltage divider is used to reduce MQ135 5v max output from A0 to ESP8266 3.3v input.
+  
+OLED Display pins (optional):
+
+    VCC to esp8266 3.3v 
+    GND to esp8266 GND
+    SDA to esp8266 SDA
+    SCL to esp8266 SCL
+
+Power ESP8266 via USB connection.
+
+  
  
   This software incorporates the Arduino MQ135 library to perform two functions:
   
@@ -52,35 +74,16 @@ Are these measurement accurate?  I don't know.  Are they useful? I think so, bec
 
 BREAKING NEWS UPDATE: Today the MQ135 was hovering around 12,000 and the Shark was indicating 78% (4, 18, & 21 ppm of pm1.0, pm2.5, & pm10).  I checked the EPA's AirNow App and found outside AQI is 60 (moderate) due to wildfires. Cool!
 
-# Hardware Connections:
-
-MQ135 pins:
-
-    VCC to esp8266 Vcc (5v)
-    GND to esp8266 GND
-    A0 to esp8266 A0 via voltage divider *
-    D0 unused
-
-* 170K and 330k voltage divider is used to reduce MQ135 5v max output from A0 to ESP8266 3.3v input.
-  
-OLED Display pins (optional):
-
-    VCC to esp8266 3.3v 
-    GND to esp8266 GND
-    SDA to esp8266 SDA
-    SCL to esp8266 SCL
-
-Power ESP8266 via USB connection with computer or power supply.
 
 # Discussion
 
-The MQ135 board has several components, including the MQ135 sensor, a power LED, an alarm LED, a variable resistor to adjust the alarm level that triggers the alarm LED, a Load Resistor (RL), as well as some circuitry associated with the digital output.  Each board may be slightly different.  All resistance measurements in this discussion pertain to my specific board.  The MQ135 sensor itself has 6 pins labeled A,A B,B and H,H.  The H pins connect to the heater coil, which measures 35 ohms without power.  The A's are connected to each other, as are the B's.  They are the terminations for Rs, the sensor resistance, which measures 1630 ohms without power.  The A's are connected to Vcc (5 volts).  The B's are connected to a board pin labeled A0 and to a fixed load resistor RL whose other end is connected to the ground pin of the board.  The characteristic curve shows that increasing ppm reduces sensor resistance.  The resistance of the sensor and the RL tied to A0 pin form a voltage divider whose voltage increases with increasing PPM (decreasing Rs).  RL measures 1610 ohms without power. The comparable Rs and RL values insure optimum use of the 10-bit A/D Converter. 
+The MQ135 board has several components, including the MQ135 sensor, a power LED, an alarm LED, a variable resistor to adjust the alarm level that triggers the alarm LED, a Load Resistor (RL), as well as some circuitry associated with the digital output.  Each board may be slightly different.  All resistance measurements in this discussion pertain to my specific board.  The MQ135 sensor itself has 6 pins labeled A,A B,B and H,H.  The H pins connect to the heater coil, which measures 35 ohms without power.  The A's are connected to each other, as are the B's.  They are the terminations for Rs, the sensor resistance.  The A's are connected to Vcc (5 volts).  The B's are connected to a board pin labeled A0 and to a fixed load resistor RL whose other end is connected to the ground pin of the board.  The characteristic curve shows that increasing ppm reduces sensor resistance.  The resistance of the sensor and the RL tied to A0 pin form a voltage divider whose voltage increases with increasing PPM (decreasing Rs).  The comparable Rs and RL values insure optimum use of the 10-bit A/D Converter. 
 
 It is worth noting that the value of RL plays no role in calculating the AQI, because the AQI is calculated using the ratio Rs (sensor resistance in normal environment) and Ro (sensor resistance in clean air): 
 The voltage divider relationship is VL/Vcc = RL/(RL + Rs).  Solving for Rs yields Rs = RL(Vcc/Vs - 1).  So the initial resistance Ro = RL(VCC/Vo-1).  The quantity Rs/Ro results in RL being cancelled out because it is in the numerator and denominator. Yay!
 That said, the measured value of RL in KOhms needs to be entered in the software becuasse it is used to measure Rs.
 
-Finally, the esp8266 or esp32 used for this project needs to be 10 bits if you want to use the getResistance command beccause the library uses the max value 1023 instead of Vcc in the calculation.
+Finally, the esp8266 or esp32 used for this project needs to be 10 bits if you want to use the getResistance command beccause the MQ135 library uses the max value 1023 instead of Vcc in the calculation.
 
 # Someday:
 
