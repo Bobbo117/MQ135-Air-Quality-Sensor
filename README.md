@@ -6,7 +6,7 @@
 
 # Operation Concept  
 1. Measure the load resistance between the A0 and GND pin of the MQ135 board (without power applied).  Mine measures 1720 ohms (1.720 Kohm). This load resistor is not variable.
-2. Next, measure the sensor resistance between the VCC and GND pin.  Mine measures 1750 ohms (1.750 Kohms).  These two resistors form a voltage divider whose midpoint is pin A0.
+2. Next, measure the sensor resistance between the VCC and GND pin.  Mine measures 1750 ohms (1.750 Kohms).  These two resistors form a voltage divider between Vcc and GND whose midpoint is pin A0.
 
 When the unit is powered up, the sensor resistance decreases as the concentration of detected gases (mostly CO2 hopefully) increases, causing the voltage across the load resistance at pin A0 to increase.
 
