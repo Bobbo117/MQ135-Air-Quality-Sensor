@@ -4,7 +4,7 @@
   Though the datasheet only specifies sensitivity characteristics to 200 ppm, the MQ135 properties suggest utility as a CO2 detector as well as a general air quality monitor.  For comparison, consider that the [CO2.Earth]([co2.earth](https://www.co2.earth/)) website indicates clean 
   outside air contains above 400 ppm CO2.  Inside air can exceed 1000 ppm easily.
 
-# Operation Concept  
+# MQ135 Board Concept of Operation
 1. Measure the load resistance between the A0 and GND pin of the MQ135 board (without power applied).  Mine measures 1720 ohms (1.720 Kohm). This load resistor is not variable.
 2. Next, measure the sensor resistance between the VCC and GND pin.  Mine measures 1750 ohms (1.750 Kohms).  These two resistors form a voltage divider between Vcc and GND whose midpoint is pin A0.
 
