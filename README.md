@@ -3,6 +3,9 @@ The MQ135 sensor ([datasheet](https://www.olimex.com/Products/Components/Sensors
   
 The datasheet only specifies sensitivity characteristics to 200 ppm. Consider that the [CO2.Earth](https://www.co2.earth/) website indicates clean outside air contains above 400 ppm CO2, and that inside air can exceed 1000 ppm easily.  The MQ135 properties suggest possible utility as a CO2 detector as well as a general air quality monitor.  
 
+
+
+
 # MQ135 Board Concept of Operation
 1. Measure the sensor resistance of the MQ135 board (without power applied) between the VCC and the A0 pin.  Mine measures 1750 ohms (1.750 Kohms).
    
