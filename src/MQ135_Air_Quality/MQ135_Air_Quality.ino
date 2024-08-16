@@ -1,5 +1,5 @@
 
-#define VERSION "MQ135_Air_Quality_2024_0810"
+#define VERSION "MQ135_Air_Quality_2024_0816"
 
 /*
   This software incorporates the MQ135 library to do perform two functions:
@@ -8,8 +8,8 @@
   
     computer monitor via USB connection
     OLED display via I2C connection
-    Thingspeak.com via WIFI
-    Home Assistant via WIFI and MQTT
+    Thingspeak.com via WIFI if the #define THINGSPEAK statement is enabled
+    Home Assistant via WIFI and MQTT if the #define MQTT statement is enabled
 
   NOTE - The device automatically ignores the platforms for which it is not credentialed or connected
 */    
@@ -19,7 +19,7 @@
 //                                                          //
 //////////////////////////////////////////////////////////////
 
-  #include <secrets.h>   
+  #include <secrets.h>   //<--*** if you want to report to Thingspeak or MQTT
   
 /* 
   secrets.h file contents follow (optional):
@@ -38,124 +38,136 @@
 */
 ////////////////////////////////////////////////////////////////////
 
-//Tested on esp8266 (NodeMCU 0.9 (ESP-12 Module)
-//#include "Arduino.h"
+
 //#define CALIBRATE         // Comment out if not in calibration mode
 
-#define PIN_MQ135 A0      // Analog pin on the ESP8266, ESP32, etc which connects to the analog output of the sesor. 
+#define PIN_MQ135 A0       // Analog pin on the ESP8266 which connects to the analog output of the sesor. 
 #define RZERO 51.5         // Measured resistance from calibration (8/8/2024 75F, 63% RH in my case)
-#define RLOAD 1.612        // Measured resistance Kohms pin A0 to Gnd with power off
+#define RLOAD 20 //1.612        // Measured resistance Kohms pin A0 to GND with power off
 unsigned long reportPeriod_msec = 15000;        // Report period in msec
 
-//Sensor stuff
-#include "MQ135.h"
-//MQ135 gasSensor(PIN_MQ135, RZERO, RLOAD);
-MQ135 gasSensor(PIN_MQ135, RZERO);
+//***Sensor stuff
+#include "MQ135.h"        // <-- from Arduino Library Manager
+MQ135 gasSensor(PIN_MQ135, RZERO, RLOAD);
 
-//Wifi stuff:
-#include <ESP8266WiFi.h>
-#define WIFI_SSID SECRET_WIFI_SSID  
-#define WIFI_PASSWORD SECRET_WIFI_PASSWORD
-WiFiClient client;
+#define OLED_
+#define WIFI_
+#define THINGSPEAK_
+#define MQTT_
 
-//Display stuff
-#include <SPI.h>
-#include <Wire.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
-#define SCREEN_WIDTH 128    // OLED display width, in pixels
-#define SCREEN_HEIGHT 64    // OLED display height, in pixels
-#define OLED_RESET -1       // Reset pin # (or -1 if sharing Arduino reset pin)
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+//***Wifi stuff
+#ifdef WIFI_
+  #include <ESP8266WiFi.h>
+  #define WIFI_SSID SECRET_WIFI_SSID  
+  #define WIFI_PASSWORD SECRET_WIFI_PASSWORD
+  WiFiClient client;
+#endif
 
-//Timezone stuff
-#include <ezTime.h>
-#define MY_TIMEZONE "America/New_York"               // <<<<<<< use Olson format: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-#define TIMEZONE_EEPROM_OFFSET 0                     // location-to-timezone info - saved in case eztime server is down
-Timezone myTZ;
+//***Display stuff
+#ifdef OLED_
+    #include <Wire.h>
+    #include "SSD1306Ascii.h"
+    #include "SSD1306AsciiWire.h"
+    #define I2C_ADDRESS 0x3C            // 0X3C+SA0 - 0x3C or 0x3D
+    #define OLED_RESET     -1           // Reset pin # (or -1 if sharing Arduino reset pin)
+    SSD1306AsciiWire oled;
+#endif
 
-//MQTT stuff for Home Assistant
-#include <PubSubClient.h>
-PubSubClient mqttClient(client);
-#define MQTT_USER_NAME SECRET_MQTT_USER_NAME         
-#define MQTT_PASSWORD SECRET_MQTT_USER_PWD            
-#define MQTT_SERVER SECRET_MQTT_HOST
-#define DEVICE_NAME "mq135"
-#define LWT_TOPIC "mq135/status/LWT"             // MQTT Last Will & Testament
-#define MQ135_TOPIC "aqi/mq135"
-#define MQ135_ADC_TOPIC "aqi/adc"
-#define VERSION_TOPIC "mq135/report/version"     // report software version at connect
-#define RECV_COMMAND_TOPIC "mq135/cms/#"
-#define MSG_BUFFER_SIZE 512                          // for MQTT message payload (growth)
-char msg[MSG_BUFFER_SIZE];
-unsigned long lastReconnectAttempt = 0;
-unsigned long lastPublish = 0, lastRead = 0, lastPressErrReport = 0;
-unsigned long tempNow, lastPublishNow, sensorReadNow, mqttNow; //
+#ifdef MQTT_
+  //***Timezone stuff
+  #include <ezTime.h>
+  #define MY_TIMEZONE "America/New_York"               // <<<<<<< use Olson format: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  #define TIMEZONE_EEPROM_OFFSET 0                     // location-to-timezone info - saved in case eztime server is down
+  Timezone myTZ;
 
-//ThingSpeak stuff
-const char* server = "api.thingspeak.com";
-String THINGSPEAK_API_KEY = SECRET_THINGSPEAK_API_KEY;  //does not compile as #define WHY???
+ //***MQTT stuff for Home Assistant
+  #include <PubSubClient.h>
+  PubSubClient mqttClient(client);
+  #define MQTT_USER_NAME SECRET_MQTT_USER_NAME         
+  #define MQTT_PASSWORD SECRET_MQTT_USER_PWD            
+  #define MQTT_SERVER SECRET_MQTT_HOST
+  #define DEVICE_NAME "mq135"
+  #define LWT_TOPIC "mq135/status/LWT"             // MQTT Last Will & Testament
+  #define MQ135_TOPIC "aqi/mq135"                  // MQTT topic for sensor
+  #define MQ135_ADC_TOPIC "aqi/adc"                //MQTT topic for AD Converter (optional)
+  #define VERSION_TOPIC "mq135/report/version"     // report software version at connect
+  #define RECV_COMMAND_TOPIC "mq135/cms/#"
+  #define MSG_BUFFER_SIZE 512                          // for MQTT message payload (growth)
+  char msg[MSG_BUFFER_SIZE];
+  unsigned long lastReconnectAttempt = 0;
+  unsigned long lastPublish = 0, lastRead = 0, lastPressErrReport = 0;
+  unsigned long tempNow, lastPublishNow, sensorReadNow, mqttNow; //
+#endif
+
+//***ThingSpeak stuff
+#ifdef THINGSPEAK_
+  const char* server = "api.thingspeak.com";
+  String THINGSPEAK_API_KEY = SECRET_THINGSPEAK_API_KEY;  
+#endif
 
 //   ***********************
 //   **  MQTT reconnect() **
 //   ***********************
 
-boolean reconnect()
-{
-  // PubSubClient::connect(const char *id, const char *user, const char *pass, const char* willTopic, uint8_t willQos, boolean willRetain, const char* willMessage)
-  if (mqttClient.connect(DEVICE_NAME, MQTT_USER_NAME, MQTT_PASSWORD, LWT_TOPIC, 2, true, "Disconnected"))
+#ifdef MQTT_
+  boolean reconnect()
   {
-    Serial.print(F("MQTT connected to "));
-    Serial.println(F(MQTT_SERVER));
-
-    // Publish MQTT announcements...
-    mqttClient.publish(LWT_TOPIC, "Connected", true); // let broker know we're connected
-    Serial.printf("\n%s MQTT SENT: %s/Connected\n", myTZ.dateTime("[H:i:s.v]").c_str(), LWT_TOPIC);
-
-    mqttClient.publish(VERSION_TOPIC, VERSION, true); // report firmware version
-    Serial.printf("%s MQTT SENT: Firmware %s\n", myTZ.dateTime("[H:i:s.v]").c_str(), VERSION);
-
-    // Subscribe
-    mqttClient.subscribe(RECV_COMMAND_TOPIC);
-  }
-  return mqttClient.connected();
-}
-
-//   ***********************
-//   **  MQTT callback()  **
-//   ***********************
-
-void callback(char *topic, byte *payload, unsigned int length)
-{
-  strncpy(msg, (char *)payload, length);
-  msg[length] = (char)NULL; // terminate the string
-  Serial.printf("\n%s MQTT RECVD: %s/%s \n", myTZ.dateTime("[H:i:s.v]").c_str(), topic, msg);
-
-  // All commands must be prefixed with RECV_COMMAND_TOPIC
-  //   reboot         - reboots device
-  //   report_period_ms/<new_value>
-                            
-  if (strstr(topic, "report_period_ms")) // report period in msec
-  {
-    if (atoi(msg) >= 1)
+    // PubSubClient::connect(const char *id, const char *user, const char *pass, const char* willTopic, uint8_t willQos, boolean willRetain, const char* willMessage)
+    if (mqttClient.connect(DEVICE_NAME, MQTT_USER_NAME, MQTT_PASSWORD, LWT_TOPIC, 2, true, "Disconnected"))
     {
-      Serial.printf("reportPeriod_msec set to %s\n", msg);
-      reportPeriod_msec = atoi(msg);
+      Serial.print(F("MQTT connected to "));
+      Serial.println(F(MQTT_SERVER));
+  
+      // Publish MQTT announcements...
+      mqttClient.publish(LWT_TOPIC, "Connected", true); // let broker know we're connected
+      Serial.printf("%s MQTT SENT: %s/Connected\n", myTZ.dateTime("[H:i:s.v]").c_str(), LWT_TOPIC);
+  //Serial.printf("\n%s MQTT SENT: %s/Connected\n", myTZ.dateTime("[H:i:s.v]").c_str(), LWT_TOPIC);
+  
+      mqttClient.publish(VERSION_TOPIC, VERSION, true); // report firmware version
+      Serial.printf("%s MQTT SENT: Firmware %s\n", myTZ.dateTime("[H:i:s.v]").c_str(), VERSION);
+  
+      // Subscribe
+      mqttClient.subscribe(RECV_COMMAND_TOPIC);
     }
+    return mqttClient.connected();
   }
-
-  if (strstr(topic, "reboot"))
+  
+  //   ***********************
+  //   **  MQTT callback()  **
+  //   ***********************
+  
+  void callback(char *topic, byte *payload, unsigned int length)
   {
-    Serial.println(F("MQTT reboot command received.  Rebooting..."));
-    delay(5000);
-    mqttClient.disconnect();
-    delay(1000);
-    WiFi.disconnect();
-    delay(1000);
-    ESP.restart();
+    strncpy(msg, (char *)payload, length);
+    msg[length] = (char)NULL; // terminate the string
+    Serial.printf("\n%s MQTT RECVD: %s/%s \n", myTZ.dateTime("[H:i:s.v]").c_str(), topic, msg);
+  
+    // All commands must be prefixed with RECV_COMMAND_TOPIC
+    //   reboot         - reboots device
+    //   report_period_ms/<new_value>
+                              
+    if (strstr(topic, "report_period_ms")) // report period in msec
+    {
+      if (atoi(msg) >= 1)
+      {
+        Serial.printf("reportPeriod_msec set to %s\n", msg);
+        reportPeriod_msec = atoi(msg);
+      }
+    }
+  
+    if (strstr(topic, "reboot"))
+    {
+      Serial.println(F("MQTT reboot command received.  Rebooting..."));
+      delay(5000);
+      mqttClient.disconnect();
+      delay(1000);
+      WiFi.disconnect();
+      delay(1000);
+      ESP.restart();
+    }
+    msg[0] = (char)NULL; // clear msg
   }
-  msg[0] = (char)NULL; // clear msg
-}
+#endif
 
 //   ***********************
 //   **  setup()  **
@@ -166,44 +178,48 @@ void setup()
   Serial.begin(115200);
 
   //Setup OLED Display
-  display.begin(SSD1306_SWITCHCAPVCC, 0x3C); //initialize with the I2C addr 0x3C (128x64)
-  display.clearDisplay();
-  delay(10);
-  display.clearDisplay();
-  display.setCursor(0,0);  
-  display.setTextSize(1);
-  display.setTextColor(WHITE);
-  display.println("Connecting to ");
-  display.setTextSize(2);
-  display.print(WIFI_SSID);
-  display.display();
-
+  #ifdef OLED_
+    Wire.begin();
+    #if OLED_RESET  >= 0
+      oled.begin(&Adafruit128x64, I2C_ADDRESS, OLED_RESET);
+    #else 
+      oled.begin(&Adafruit128x64, I2C_ADDRESS);
+    #endif
+    oled.clear();
+    oled.setFont(fixed_bold10x15);
+    oled.setCursor(0,0); 
+    #ifdef WIFI_
+      oled.println ("Connecting..");
+      oled.println(WIFI_SSID);
+    #endif  
+  #endif
+  
   //Setup wifi
-  Serial.println("Connecting to ");
-  Serial.println(WIFI_SSID);
-  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
-  while (WiFi.status() != WL_CONNECTED)
-  {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println("");
-  Serial.println("WiFi connected");
+  #ifdef WIFI_
+    Serial.println("Connecting.. ");
+    Serial.println(WIFI_SSID);
+    WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+    while (WiFi.status() != WL_CONNECTED)
+    {
+      delay(500);
+      Serial.print(".");
+    }
+    Serial.println("");
+    Serial.println("WIFI onnected");
 
-  //Update display
-  display.clearDisplay();
-  display.setCursor(0,0);  
-  display.setTextSize(1);
-  display.setTextColor(WHITE);
-  display.print("WiFi connected");
-  display.display();
+    #ifdef OLED_
+      oled.println("connected");
+    #endif
+  #endif    
 
   //Setup mqtt
-  mqttClient.setBufferSize(MSG_BUFFER_SIZE);
-  mqttClient.setServer(MQTT_SERVER, 1883);
-  mqttClient.setCallback(callback);
-  lastReconnectAttempt = 0;
-
+  #ifdef MQTT_
+    mqttClient.setBufferSize(MSG_BUFFER_SIZE);
+    mqttClient.setServer(MQTT_SERVER, 1883);
+    mqttClient.setCallback(callback);
+    lastReconnectAttempt = 0;
+  #endif
+  
   delay(4000);
 }
  
@@ -220,8 +236,8 @@ void loop()
   // float R_Sensor = (1023.0/ADC -1.0)*RLOAD;
               
   //print to Serial Monitor
-  #ifdef CALIBRATE
-    //****Read R Zero
+  #ifdef CALIBRATE_
+    //****Read sensor resistance
     float value = gasSensor.getRZero();
     Serial.print("R Zero Ohms: ");  
     Serial.println(value);
@@ -237,86 +253,81 @@ void loop()
   Serial.println(ADC);
   
   //****Display AQI value on OLED
-  display.clearDisplay();
-  display.setCursor(0,0);  //oled display
-  display.setTextSize(1);
-  display.setTextColor(WHITE);
-  #ifdef CALIBRATE
-    display.println("Calibration");
-  #else
-    display.println("Air Quality Index");
-  #endif  
-  display.setCursor(0,20);  //oled display
-  display.setTextSize(2);
-  display.setTextColor(WHITE);  
-  display.println(value);
-//  display.setTextSize(1);
- // display.setTextColor(WHITE);
-//  #ifdef CALIBRATE
-//    display.println(" OHMS");
-//  #else
-//    display.println(" PPM");
-//  #endif
-  display.print("A:"); 
-  display.println(ADC);
-  display.display();
+  #ifdef OLED_
+    oled.clear();
+    oled.setCursor(0,0); 
+    #ifdef CALIBRATE_
+      oled.println("Calibration");
+    #else
+      oled.println("Air Quality Index");
+    #endif   
+    oled.println(value);
 
+    oled.print("A:"); 
+    oled.println(ADC);
+    oled.print("Rs:");
+    oled.println(R_Sensor);
+  #endif
   
   //***verify mqtt connection
-  if (!mqttClient.connected())
-  {
-    mqttNow = millis();
-    if (mqttNow - lastReconnectAttempt > 1000)
+  #ifdef MQTT_
+    if (!mqttClient.connected())
     {
-      Serial.printf("[%s] Waiting for MQTT...\n", myTZ.dateTime(RFC3339).c_str());
-      lastReconnectAttempt = mqttNow;
-      // Attempt to reconnect
-      if (reconnect())
+      mqttNow = millis();
+      if (mqttNow - lastReconnectAttempt > 1000)
       {
-        lastReconnectAttempt = 0;
+        Serial.printf("[%s] Waiting for MQTT...\n", myTZ.dateTime(RFC3339).c_str());
+        lastReconnectAttempt = mqttNow;
+        // Attempt to reconnect
+        if (reconnect())
+        {
+          lastReconnectAttempt = 0;
+        }
       }
     }
-  }
-  else
-  {
-    // Client connected
-    mqttClient.loop();
-  }
+    else
+    {
+      // Client connected
+      mqttClient.loop();
+    }
   
-  //****Publish MQTT for Home Assistant
-  lastPublishNow = millis();
-  if(mqttClient.connected() ){
-    sprintf(msg, "%.2f", value);
-    mqttClient.publish(MQ135_TOPIC, msg, true);
-    sprintf(msg, "%.2f", value);
-    mqttClient.publish(MQ135_ADC_TOPIC, msg, true);
-    
-    lastPublish = millis(); 
-  }      
-
+    //****Publish MQTT
+    lastPublishNow = millis();
+    if(mqttClient.connected() )
+    {
+      sprintf(msg, "%.2f", value);
+      mqttClient.publish(MQ135_TOPIC, msg, true);
+      sprintf(msg, "%.2f", value);
+      mqttClient.publish(MQ135_ADC_TOPIC, msg, true);
+      lastPublish = millis(); 
+    }      
+  #endif
+  
   //****Publish Thingspeak
-  if (client.connect(server, 80)) // "184.106.153.149" or api.thingspeak.com
-  {
-    String postStr = THINGSPEAK_API_KEY;
-    postStr += "&field1=";
-    postStr += String(value);
-    postStr += "r\n";
-    
-    client.print("POST /update HTTP/1.1\n");
-    client.print("Host: api.thingspeak.com\n");
-    client.print("Connection: close\n");
-    client.print("X-THINGSPEAKAPIKEY: " + THINGSPEAK_API_KEY + "\n");
-    client.print("Content-Type: application/x-www-form-urlencoded\n");
-    client.print("Content-Length: ");
-    client.print(postStr.length());
-    client.print("\n\n");
-    client.print(postStr);
-    
-    Serial.println("Data Sent to Thingspeak");
-  }
+  #ifdef THINGSPEAK_
+    if (client.connect(server, 80)) // "184.106.153.149" or api.thingspeak.com
+    {
+      String postStr = THINGSPEAK_API_KEY;
+      postStr += "&field1=";
+      postStr += String(value);
+      postStr += "r\n";
+      
+      client.print("POST /update HTTP/1.1\n");
+      client.print("Host: api.thingspeak.com\n");
+      client.print("Connection: close\n");
+      client.print("X-THINGSPEAKAPIKEY: " + THINGSPEAK_API_KEY + "\n");
+      client.print("Content-Type: application/x-www-form-urlencoded\n");
+      client.print("Content-Length: ");
+      client.print(postStr.length());
+      client.print("\n\n");
+      client.print(postStr);
+      client.stop();
+      Serial.println("Published Thingspeak");
+    }
+  #endif
+  
+  //****Pause to throttle data rate (thingspeak needs minimum 15 sec delay between updates).
 
-  //****Pause to throttle data rate thingspeak needs minimum 15 sec delay between updates.
-  client.stop();
-  Serial.println("Waiting...");
+  Serial.println("Waiting...");Serial.println("");
   delay(reportPeriod_msec);
 }
