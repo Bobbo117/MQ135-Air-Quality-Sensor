@@ -13,7 +13,7 @@ These two resistors form a voltage divider between Vcc and GND whose midpoint is
 Additional board circuitry enables setting a potentiometer to determine the level at which the D0 pin and LED trigger.
 
 # MQ135 Sensor Board Calibration
-The datasheet suggests calibrating under strict conditions that would require an environmental chamber and with a specific load resistance.  Since we don't have a chamber, and the board comes with a fixed load resistance the does not comply, we calibrate the unit outdoors under clear conditions and hope for the best.  Try to pick a day when outside conditions match normal inside conditions.  Also, consider using the EPA's AirNow App to verify air quality.
+The datasheet suggests calibrating under strict conditions that would require an environmental chamber and with a specific load resistance.  Since we don't have a chamber, and the board comes with a fixed load resistance the does not comply, we calibrate the unit outdoors under clear conditions and hope for the best.  Try to pick a day when outside temperature and humidity conditions match normal inside conditions.  Also, consider using the EPA's AirNow App to verify air quality.
 
 # Hardware Connections
 
@@ -88,7 +88,7 @@ The MQ135 board has several components, including the MQ135 sensor, a power LED,
 
 It is worth noting that the value of RL plays no role in calculating the AQI, because the AQI is calculated using the ratio Rs (sensor resistance in normal environment) and Ro (sensor resistance in clean air): 
 The voltage divider relationship is VL/Vcc = RL/(RL + Rs).  Solving for Rs yields Rs = RL(Vcc/Vs - 1).  So the initial resistance Ro = RL(VCC/Vo-1).  The quantity Rs/Ro results in RL being cancelled out because it is in the numerator and denominator. Yay!
-That said, the measured value of RL in KOhms needs to be entered in the software becuasse it is used to measure Rs.
+That said, the measured value of RL in KOhms needs to be entered in the software becuasse it is used to calculate the value of Rs.
 
 Finally, the esp8266 or esp32 used for this project needs to be 10 bits if you want to use the getResistance command beccause the MQ135 library uses the max value 1023 instead of Vcc in the calculation.
 
