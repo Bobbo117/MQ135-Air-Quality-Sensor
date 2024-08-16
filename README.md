@@ -4,7 +4,8 @@ The MQ135 sensor ([datasheet](https://www.olimex.com/Products/Components/Sensors
 The datasheet only specifies sensitivity characteristics to 200 ppm. Consider that the [CO2.Earth](https://www.co2.earth/) website indicates clean outside air contains above 400 ppm CO2, and that inside air can exceed 1000 ppm easily.  The MQ135 properties suggest possible utility as a CO2 detector as well as a general air quality monitor.  
 
 # MQ135 Board Concept of Operation
-1. Measure the sensor resistance of the MQ135 board (without power applied) between the VCC and the A0 pin.  Mine measures 1750 ohms (1.750 Kohms).  
+1. Measure the sensor resistance of the MQ135 board (without power applied) between the VCC and the A0 pin.  Mine measures 1750 ohms (1.750 Kohms).
+   
 2. Measure the load resistance between the A0 and GND pin.  Mine measures 1720 ohms (1.720 Kohm). YOU WILL NEED TO ENTER THE LOAD RESISTANCE VALUE IN KOHMS FOR THE #DEFINE RLOAD STATEMENT IN THE MQ135_Air_Quality.ino SOFTWARE.
 
 These two resistors form a voltage divider between Vcc and GND whose midpoint is pin A0.  When the unit is powered up, the sensor resistance decreases as the concentration of detected gases (mostly CO2 normally) increases, causing the voltage across the load resistance at pin A0 to increase.  
@@ -48,7 +49,7 @@ The MQ135_Air_Quality.ino software incorporates the Arduino MQ135 library to per
   
 a. computer via USB to Arduino IDE
   
-b. OLED display via I2C if the #define OLED line is not disabled
+b. OLED display via I2C if one is present
   
 c. Thingspeak.com via WIFI if the #define THINGSPEAK line is not disabled
   
