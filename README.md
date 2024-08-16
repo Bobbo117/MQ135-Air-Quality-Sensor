@@ -18,27 +18,29 @@ The datasheet suggests calibrating under strict conditions that would require an
 
 MQ135 pins:
 
-  VCC to esp8266 Vcc (5v)
-  GND to esp8266 GND
-  A0 to esp8266 A0 via voltage divider *
-  D0 unused
+1. VCC to esp8266 Vcc (5v)
+2. GND to esp8266 GND
+3. A0 to esp8266 A0 via voltage divider *
+4. D0 unused
 
 * 170K and 330k voltage divider is used to reduce MQ135 5v max output from A0 to ESP8266 3.3v input.
   
 OLED Display pins (optional):
 
-  VCC to esp8266 3.3v 
-  GND to esp8266 GND
-  SDA to esp8266 SDA
-  SCL to esp8266 SCL
+1. VCC to esp8266 3.3v 
+2. GND to esp8266 GND
+3. SDA to esp8266 SDA
+4. SCL to esp8266 SCL
 
 Power the ESP8266 via USB connection.
 
 # Software
 
+Use the Library Manager of the Arduine IDE to download the MQ135 library.  
+
 The MQ135_Air_Quality.ino software incorporates the Arduino MQ135 library to perform two functions:
   
-1. When the #define CALIBRATE statement is active, calibrate the MQ135 sensor by running the system outdoors for a couple hours
+1. When the #define CALIBRATE statement is active, calibrate the MQ135 sensor while running the system outdoors for a couple hours
    to attain a reference resistance R0 for fresh air.  Replace the number in the software statement '#define RZERO 51.5' with the new value.
    Consider using the EPA's AirNow App to verify the outside air quality.
            
@@ -46,16 +48,15 @@ The MQ135_Air_Quality.ino software incorporates the Arduino MQ135 library to per
   
 a. computer via USB to Arduino IDE
   
-b. OLED display via I2C
+b. OLED display via I2C if the #define OLED line is not disabled
   
-c. Thingspeak.com via WIFI
+c. Thingspeak.com via WIFI if the #define THINGSPEAK line is not disabled
   
-d. Home Assistant via MQTT
+d. Home Assistant via MQTT if the #define MQTT is not disabled
 
 NOTES 
-  
-  1. The software ignores the platforms for which it is not credentialed or connected.
-  2. The MQ135 must be powered on for 24 hours before first use.
+
+  1. The MQ135 must be powered on for 24 hours before first use.
 
 # Results
 
@@ -64,7 +65,7 @@ Examples of MQ135 measurements after calibration (Calibration outside conditions
     Outside Maine - 75 F 63% RH 415 ppm
     Maine Kithen - windows open 550 ppm
     Maine Kithen - windows shut 800 ppm
-    Maine Kithen - oven on    1500 ppm   
+    Maine Kithen - oven on     1500 ppm   
     
     Maine basement - quiet     1450 ppm
     Maine basement - humidex   1320 ppm
