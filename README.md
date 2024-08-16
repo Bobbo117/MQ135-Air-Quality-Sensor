@@ -18,19 +18,19 @@ The datasheet suggests calibrating under strict conditions that would require an
 
 MQ135 pins:
 
-VCC to esp8266 Vcc (5v)
-GND to esp8266 GND
-A0 to esp8266 A0 via voltage divider *
-D0 unused
+  VCC to esp8266 Vcc (5v)
+  GND to esp8266 GND
+  A0 to esp8266 A0 via voltage divider *
+  D0 unused
 
 * 170K and 330k voltage divider is used to reduce MQ135 5v max output from A0 to ESP8266 3.3v input.
   
 OLED Display pins (optional):
 
-VCC to esp8266 3.3v 
-GND to esp8266 GND
-SDA to esp8266 SDA
-SCL to esp8266 SCL
+  VCC to esp8266 3.3v 
+  GND to esp8266 GND
+  SDA to esp8266 SDA
+  SCL to esp8266 SCL
 
 Power the ESP8266 via USB connection.
 
