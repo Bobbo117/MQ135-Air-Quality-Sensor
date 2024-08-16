@@ -12,7 +12,7 @@ These two resistors form a voltage divider between Vcc and GND whose midpoint is
 Additional board circuitry enables setting a potentiometer to determine the level at which the D0 pin and LED trigger.
 
 # MQ135 Sensor Board Calibration
-The datasheet suggests calibrating under strict conditions that would require an environmental chamber and with a specific load resistance.  Since we don't have a chamber, and the board comes with a fixed load resistance the does not comply, we calibrate the unit outside under clear conditions and hope for the best.  Try to pick a day when outside conditioons match normal inside conditions.  Also, consider using the EPA's AirNow App to verify air quality.
+The datasheet suggests calibrating under strict conditions that would require an environmental chamber and with a specific load resistance.  Since we don't have a chamber, and the board comes with a fixed load resistance the does not comply, we calibrate the unit outdoors under clear conditions and hope for the best.  Try to pick a day when outside conditions match normal inside conditions.  Also, consider using the EPA's AirNow App to verify air quality.
 
 # Hardware Connections
 
@@ -36,23 +36,23 @@ Power the ESP8266 via USB connection.
 
 # Software
 
-  The MQ135_Air_Quality.ino software incorporates the Arduino MQ135 library to perform two functions:
+The MQ135_Air_Quality.ino software incorporates the Arduino MQ135 library to perform two functions:
   
-  1. When the #define CALIBRATE statement is active, calibrate the MQ135 sensor by running the system outdoors for a couple hours
-     to attain a reference resistance R0 for fresh air.  Replace the number in the software statement '#define RZERO 51.5' with the new value.
-     Consider using the EPA's AirNow App to verify the outside air quality.
+1. When the #define CALIBRATE statement is active, calibrate the MQ135 sensor by running the system outdoors for a couple hours
+   to attain a reference resistance R0 for fresh air.  Replace the number in the software statement '#define RZERO 51.5' with the new value.
+   Consider using the EPA's AirNow App to verify the outside air quality.
            
-  2. When the #define CALIBRATE statement is inactivated by commenting it out, read the MQ135 sensor and report the CO2 ppm data on the following platforms:
+2. When the #define CALIBRATE statement is inactivated by commenting it out, read the MQ135 sensor and report the CO2 ppm data on the following platforms:
   
-    a. computer via USB to Arduino IDE
+a. computer via USB to Arduino IDE
   
-    b. OLED display via I2C
+b. OLED display via I2C
   
-    c. Thingspeak.com via WIFI
+c. Thingspeak.com via WIFI
   
-    d. Home Assistant via MQTT
+d. Home Assistant via MQTT
 
-  NOTES 
+NOTES 
   
   1. The software ignores the platforms for which it is not credentialed or connected.
   2. The MQ135 must be powered on for 24 hours before first use.
