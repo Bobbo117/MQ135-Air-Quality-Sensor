@@ -2,7 +2,7 @@
 
 This project connects the MQ135 sensor board to an Arduino-based controller to calibrate it outside and then monitor inside air quality, primarily CO2, using one or any combination of the following options:
 
-a. Computer
+a. Computer via usb to Arduino IDE
   
 b. OLED display
   
