@@ -5,7 +5,7 @@
 
 The MQ135 sensor ([datasheet here](https://www.olimex.com/Products/Components/Sensors/Gas/SNS-MQ135/resources/SNS-MQ135.pdf)) uses the presence of certain gases to change the electrical resistance of the sensor.
 
-The following excerpt from the datasheet depicts the internal structure ofthe sensor and does not inclde the load resister RL or any of the board components.
+The following excerpt from the datasheet depicts the internal structure of the sensor and does not include the load resister RL or any of the board components.
 
 ![image](https://github.com/user-attachments/assets/4af4b039-8945-414b-9be0-84ea8c5ca75d)
 
@@ -62,9 +62,9 @@ a. computer via USB to Arduino IDE
   
 b. OLED display via I2C if one is present
   
-c. Thingspeak.com via WIFI if the #define THINGSPEAK line is not disabled
+c. Thingspeak.com via WIFI if the #define THINGSPEAK_ statement is not disabled
   
-d. Home Assistant via MQTT if the #define MQTT is not disabled
+d. Home Assistant via MQTT if the #define MQTT_ statement is not disabled
 
 NOTES 
 
