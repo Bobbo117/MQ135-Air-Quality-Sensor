@@ -3,9 +3,13 @@
 ![image](https://github.com/user-attachments/assets/be24d9ab-758d-421a-aa32-b21a0685b0c2) ![image](https://github.com/user-attachments/assets/d0af170c-036d-4ee3-a305-74bce83af16a)
 
 
-The MQ135 sensor ([datasheet here](https://www.olimex.com/Products/Components/Sensors/Gas/SNS-MQ135/resources/SNS-MQ135.pdf)) uses the presence of certain gases to change the electrical resistance of the sensor.  
-  
-The following excerpt from the datasheet datasheet specifies sensitivity characteristics to up to 200 ppm. Consider that the [CO2.Earth](https://www.co2.earth/) website indicates clean outside air contains more than 400 ppm CO2, and that inside air can exceed 1000 ppm easily.  The MQ135 properties suggest possible utility as a CO2 detector as well as a general air quality monitor.  
+The MQ135 sensor ([datasheet here](https://www.olimex.com/Products/Components/Sensors/Gas/SNS-MQ135/resources/SNS-MQ135.pdf)) uses the presence of certain gases to change the electrical resistance of the sensor.
+
+The following excerpt from the datasheet depicts the internal structure ofthe sensor and does not inclde the load resister RL or any of the board components.
+
+![image](https://github.com/user-attachments/assets/4af4b039-8945-414b-9be0-84ea8c5ca75d)
+
+The following excerpt from the datasheet datasheet specifies sensitivity characteristics. Consider that the [CO2.Earth](https://www.co2.earth/) website indicates clean outside air contains more than 400 ppm CO2, and that inside air can exceed 1000 ppm easily.  The MQ135 properties suggest possible utility as a CO2 detector as well as a general air quality monitor.  
 
 ![image](https://github.com/user-attachments/assets/bfa19113-d05b-4a2e-a1c8-9897aea4ffdc)
 
