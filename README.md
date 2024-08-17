@@ -1,3 +1,15 @@
+# Project Description
+
+This project connects the MQ135 sensor board to an Arduino-based controller to calibrate it outside and then monitor inside air quality using one or any combination of the following options:
+
+a. Computer
+  
+b. OLED display
+  
+c. Thingspeak.com
+  
+d. Home Assistant via MQTT
+
 # MQ135 Air Quality Sensor Board
 
 ![image](https://github.com/user-attachments/assets/be24d9ab-758d-421a-aa32-b21a0685b0c2) ![image](https://github.com/user-attachments/assets/d0af170c-036d-4ee3-a305-74bce83af16a)
@@ -5,7 +17,7 @@
 
 The MQ135 sensor ([datasheet here](https://www.olimex.com/Products/Components/Sensors/Gas/SNS-MQ135/resources/SNS-MQ135.pdf)) uses the presence of certain gases to change the electrical resistance of the sensor.
 
-The following excerpt from the datasheet depicts the internal structure of the sensor and does not include the load resister RL or any of the board components.
+The following excerpt from the datasheet depicts the internal structure of the sensor. The sensor itself does not include the load resister RL shown in the diagram or any of the board components.
 
 ![image](https://github.com/user-attachments/assets/4af4b039-8945-414b-9be0-84ea8c5ca75d)
 
@@ -24,7 +36,7 @@ These two resistors form a voltage divider between Vcc and GND whose midpoint is
 Additional board circuitry enables setting a potentiometer to determine the level at which the D0 pin and LED trigger.
 
 # MQ135 Sensor Board Calibration
-The datasheet suggests calibrating under strict conditions that would require an environmental chamber and with a specific load resistance.  Since we don't have a chamber, and the board comes with a fixed load resistance the does not comply, we calibrate the unit outdoors under clear conditions and hope for the best.  Try to pick a day when outside temperature and humidity conditions match normal inside conditions.  Also, consider using the EPA's AirNow App to verify air quality.
+The datasheet suggests calibrating under strict conditions that would require an environmental chamber and with a specific load resistance.  Since we don't have a chamber, and the board comes with a fixed load resistance the does not comply, we calibrate the unit outdoors under clear conditions and hope for the best.  Try to pick a day when outside temperature and humidity conditions match normal inside conditions.  Also, consider using the EPA's ([AirNow App](https://www.airnow.gov/airnow-mobile-app/)) to verify air quality.
 
 # Hardware Connections
 
