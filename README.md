@@ -1,6 +1,6 @@
 # Project Description
 
-This project connects the MQ135 sensor board to an Arduino-based controller to calibrate it outside and then monitor inside air quality using one or any combination of the following options:
+This project connects the MQ135 sensor board to an Arduino-based controller to calibrate it outside and then monitor inside air quality, primarily CO2, using one or any combination of the following options:
 
 a. Computer
   
@@ -29,7 +29,8 @@ The following excerpt from the datasheet datasheet specifies sensitivity charact
 # MQ135 Board Concept of Operation
 1. Measure the sensor resistance of the MQ135 board (without power applied) between the VCC and the A0 pin.  Mine measures 1750 ohms (1.750 Kohms).
    
-2. Measure the load resistance between the A0 and GND pin.  Mine measures 1720 ohms (1.720 Kohm). YOU WILL NEED TO ENTER THE LOAD RESISTANCE VALUE IN KOHMS FOR THE #DEFINE RLOAD STATEMENT IN THE MQ135_Air_Quality.ino SOFTWARE.
+2. Measure the load resistance between the A0 and GND pin.  Mine measures 1720 ohms (1.720 Kohm). You will need to enter the load resistance value in KOhms in the '#define RLOAD' statement in the 
+ MQ135_Air_Quality.ino sotware.
 
 These two resistors form a voltage divider between Vcc and GND whose midpoint is pin A0.  When the unit is powered up, the sensor resistance decreases as the concentration of detected gases (mostly CO2 normally) increases, causing the voltage across the load resistance at pin A0 to increase.  
 
@@ -40,7 +41,7 @@ The datasheet suggests calibrating under strict conditions that would require an
 
 # Hardware Connections
 
-The esp8266 microcontroller I used is the Lolin d1 mini.  The pinouts are shown below:
+Use any arduino compatable controller you want - esp8266, esp32, or arduino board - by setting flags in the software.  I used is the Lolin d1 mini esp8266.  The pinouts are shown below:
 
 ![image](https://github.com/user-attachments/assets/deb7757e-022d-40d1-9cd0-f9b4820fb36a)
 
@@ -55,7 +56,7 @@ MQ135 pins:
 3. A0 to esp8266 A0 via voltage divider *
 4. D0 unused
 
-* 170K and 330k voltage divider is used to reduce MQ135 5v max output from A0 to ESP8266 3.3v input.
+* 170K and 330k voltage divider is used to reduce MQ135 5v max output from A0 to ESP8266 or esp32 3.3v input.  Voltage divider not necessary if using an Arduino board that can handle 5v input voltage.
   
 OLED Display pins (optional):  
 
@@ -88,7 +89,7 @@ d. Home Assistant via MQTT if the #define MQTT_ statement is not disabled
 
 NOTES 
 
-  1. The MQ135 must be powered on for 24 hours before first use.
+  1. The MQ135 must be powered on for 48 hours before first use.
 
 # Results
 
@@ -121,7 +122,7 @@ It is worth noting that the value of RL plays no role in calculating the AQI, be
 The voltage divider relationship is VL/Vcc = RL/(RL + Rs).  Solving for Rs yields Rs = RL(Vcc/Vs - 1).  So the initial resistance Ro = RL(VCC/Vo-1).  The quantity Rs/Ro results in RL being cancelled out because it is in the numerator and denominator. Yay!
 That said, the measured value of RL in KOhms needs to be entered in the software becuasse it is used to calculate the value of Rs.
 
-Finally, the esp8266 or esp32 used for this project needs to be 10 bits if you want to use the getResistance command beccause the MQ135 library uses the max value 1023 instead of Vcc in the calculation.
+Finally, the microcontroller analog input used for this project needs to be 10 bits if you want to use the getResistance command beccause the MQ135 library uses the max value 1023 instead of Vcc in the calculation.
 
 # Someday:
 
