@@ -1,8 +1,6 @@
 # MQ135 Air Quality Sensor Board
 
-![image](https://github.com/user-attachments/assets/be24d9ab-758d-421a-aa32-b21a0685b0c2)
-
-![image](https://github.com/user-attachments/assets/d0af170c-036d-4ee3-a305-74bce83af16a)
+![image](https://github.com/user-attachments/assets/be24d9ab-758d-421a-aa32-b21a0685b0c2) ![image](https://github.com/user-attachments/assets/d0af170c-036d-4ee3-a305-74bce83af16a)
 
 
 The MQ135 sensor ([datasheet here](https://www.olimex.com/Products/Components/Sensors/Gas/SNS-MQ135/resources/SNS-MQ135.pdf)) uses the presence of certain gases to change the electrical resistance of the sensor.  
