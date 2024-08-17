@@ -35,9 +35,14 @@ MQ135 pins:
 3. A0 to esp8266 A0 via voltage divider *
 4. D0 unused
 
+![image](https://github.com/user-attachments/assets/deb7757e-022d-40d1-9cd0-f9b4820fb36a)
+
+![image](https://github.com/user-attachments/assets/30f0dc68-d9a5-49dc-9d5f-92cf92265db8)
+
+
 * 170K and 330k voltage divider is used to reduce MQ135 5v max output from A0 to ESP8266 3.3v input.
   
-OLED Display pins (optional):
+OLED Display pins (optional):  ![image](https://github.com/user-attachments/assets/74b7fedc-3a7a-4865-a162-2cde44a472d6)
 
 1. VCC to esp8266 3.3v 
 2. GND to esp8266 GND
