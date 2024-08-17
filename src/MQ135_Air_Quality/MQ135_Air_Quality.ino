@@ -2,6 +2,9 @@
 #define VERSION "MQ135_Air_Quality_2024_0816"
 
 /*
+   IMPORTANT - read project description at
+   https://github.com/Bobbo117/MQ135-Air-Quality-Sensor
+
   This software incorporates the MQ135 library to do perform two functions:
   1. When the #define CALIBRATE statement is active, calibarate the MQ135 sensor 
   2. When the #define CALIBRATE statement is inactive, read the MQ135 sensor and report the CO2 ppm data on the following platforms:
@@ -11,7 +14,6 @@
     Thingspeak.com via WIFI if the #define THINGSPEAK statement is enabled
     Home Assistant via WIFI and MQTT if the #define MQTT statement is enabled
 
-  NOTE - The device automatically ignores the platforms for which it is not credentialed or connected
 */    
  
 //////////////////////////////////////////////////////////////  
@@ -36,34 +38,61 @@
   Thingspeak API key (optional):
     #define SECRET_THINGSPEAK_API_KEY = "xxxxx"
 */
-////////////////////////////////////////////////////////////////////
-
+//////////////////////////////////////////////////////////////  
+//*******         Compile-time Options           ***********//
+//        (Disable unwanted options with leading //)
+//////////////////////////////////////////////////////////////
 
 //#define CALIBRATE         // Comment out if not in calibration mode
-
-#define PIN_MQ135 A0       // Analog pin on the ESP8266 which connects to the analog output of the sesor. 
-#define RZERO 51.5         // Measured resistance from calibration (8/8/2024 75F, 63% RH in my case)
-#define RLOAD 20 //1.612        // Measured resistance Kohms pin A0 to GND with power off
-unsigned long reportPeriod_msec = 15000;        // Report period in msec
-
-//***Sensor stuff
-#include "MQ135.h"        // <-- from Arduino Library Manager
-MQ135 gasSensor(PIN_MQ135, RZERO, RLOAD);
-
 #define OLED_
 #define WIFI_
 #define THINGSPEAK_
 #define MQTT_
 
-//***Wifi stuff
+// select one:  (Disable unwanted options with leading //)
+//#define ARDUINO_
+//#define ESP32_
+#define ESP8266_      //Only this option has been verified
+
+//////////////////////////////////////////////////////////////  
+//*******         Compile-time Parameters           ***********//
+// IMPORTANT - read project description at
+// https://github.com/Bobbo117/MQ135-Air-Quality-Sensor
+//////////////////////////////////////////////////////////////
+
+#define PIN_MQ135 A0       // Analog pin on the ESP8266 which connects to the analog output of the sesor. 
+#define RZERO 51.5         // Measured resistance from calibration (8/8/2024 75F, 63% RH in my case)
+#define RLOAD 20 //1.612        // Measured resistance Kohms pin A0 to GND with power off
+
+//////////////////////////////////////////////////////////////  
+//*******         Libraries          ***********//
+// Use the Arduino Library Manager to install libraries for selected compile-time options 
+// 
+//////////////////////////////////////////////////////////////
+
+//***Sensor library
+#include "MQ135.h"        // <-- from Arduino Library Manager
+MQ135 gasSensor(PIN_MQ135, RZERO, RLOAD);
+
+unsigned long reportPeriod_msec = 15000;        // Report period in msec
+
+//***Wifi libraries
 #ifdef WIFI_
-  #include <ESP8266WiFi.h>
-  #define WIFI_SSID SECRET_WIFI_SSID  
-  #define WIFI_PASSWORD SECRET_WIFI_PASSWORD
-  WiFiClient client;
+  #ifdef ESP32_
+    #include <WiFi.h>        
+    #define WIFI_SSID SECRET_WIFI_SSID  
+    #define WIFI_PASSWORD SECRET_WIFI_PASSWORD
+    WiFiClient client;
+  #endif    
+  #ifdef ESP8266_
+    #include <ESP8266WiFi.h>
+    #define WIFI_SSID SECRET_WIFI_SSID  
+    #define WIFI_PASSWORD SECRET_WIFI_PASSWORD
+    WiFiClient client;
+  #endif  
 #endif
 
-//***Display stuff
+//***Display libraries
 #ifdef OLED_
     #include <Wire.h>
     #include "SSD1306Ascii.h"
@@ -74,13 +103,13 @@ MQ135 gasSensor(PIN_MQ135, RZERO, RLOAD);
 #endif
 
 #ifdef MQTT_
-  //***Timezone stuff
+  //***Timezone libraries
   #include <ezTime.h>
   #define MY_TIMEZONE "America/New_York"               // <<<<<<< use Olson format: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   #define TIMEZONE_EEPROM_OFFSET 0                     // location-to-timezone info - saved in case eztime server is down
   Timezone myTZ;
 
- //***MQTT stuff for Home Assistant
+ //***MQTT libraries and parameters, topics
   #include <PubSubClient.h>
   PubSubClient mqttClient(client);
   #define MQTT_USER_NAME SECRET_MQTT_USER_NAME         
@@ -99,7 +128,7 @@ MQ135 gasSensor(PIN_MQ135, RZERO, RLOAD);
   unsigned long tempNow, lastPublishNow, sensorReadNow, mqttNow; //
 #endif
 
-//***ThingSpeak stuff
+//***ThingSpeak parameters
 #ifdef THINGSPEAK_
   const char* server = "api.thingspeak.com";
   String THINGSPEAK_API_KEY = SECRET_THINGSPEAK_API_KEY;  
