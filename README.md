@@ -1,6 +1,6 @@
 # Project Description
 
-This project connects the MQ135 sensor board to an Arduino-based controller to calibrate it outside and then monitor inside air quality, primarily CO2, using one or any combination of the following options:
+This project connects the MQ135 sensor board to an Arduino-based controller to calibrate it outdoors and then monitor inside air quality, primarily CO2, using one or any combination of the following options:
 
 a. Computer via usb to Arduino IDE
   
@@ -37,11 +37,11 @@ These two resistors form a voltage divider between Vcc and GND whose midpoint is
 Additional board circuitry enables setting a potentiometer to determine the level at which the D0 pin and LED trigger.
 
 # MQ135 Sensor Board Calibration
-The datasheet suggests calibrating under strict conditions that would require an environmental chamber and with a specific load resistance.  Since we don't have a chamber, and the board comes with a fixed load resistance the does not comply, we calibrate the unit outdoors under clear conditions and hope for the best.  Try to pick a day when outside temperature and humidity conditions match normal inside conditions.  Also, consider using the EPA's ([AirNow App](https://www.airnow.gov/airnow-mobile-app/)) to verify air quality.
+The datasheet suggests calibrating under strict conditions that would require an environmental chamber and with a specific load resistance.  Since we don't have a chamber, and the board comes with a fixed load resistance the may not comply, we calibrate the unit outdoors under clear conditions and hope for the best.  Try to pick a day when outside temperature and humidity conditions match normal inside conditions.  Also, consider using the EPA's ([AirNow App](https://www.airnow.gov/airnow-mobile-app/)) to verify air quality.
 
 # Hardware Connections
 
-Use any arduino compatable controller you want - esp8266, esp32, or arduino board - by setting flags in the software.  I used is the Lolin d1 mini esp8266.  The pinouts are shown below:
+Use any arduino compatable controller you want - esp8266, esp32, or arduino board - by setting flags in the software.  I used the Lolin d1 mini esp8266.  The pinouts are shown below:
 
 ![image](https://github.com/user-attachments/assets/deb7757e-022d-40d1-9cd0-f9b4820fb36a)
 
@@ -56,7 +56,7 @@ MQ135 pins:
 3. A0 to esp8266 A0 via voltage divider *
 4. D0 unused
 
-* 170K and 330k voltage divider is used to reduce MQ135 5v max output from A0 to ESP8266 or esp32 3.3v input.  Voltage divider not necessary if using an Arduino board that can handle 5v input voltage.
+* 170K and 330k voltage divider is used to reduce MQ135 5v max output from A0 to ESP8266 or esp32 3.3v input.  The oltage divider is not necessary if using an Arduino board that can handle 5v input voltage.
   
 OLED Display pins (optional):  
 
@@ -75,7 +75,6 @@ The MQ135_Air_Quality.ino software incorporates the Arduino MQ135 library to per
   
 1. When the #define CALIBRATE statement is active, calibrate the MQ135 sensor while running the system outdoors for a couple hours
    to attain a reference resistance R0 for fresh air.  Replace the number in the software statement '#define RZERO 51.5' with the new value.
-   Consider using the EPA's AirNow App to verify the outside air quality.
            
 2. When the #define CALIBRATE statement is inactivated by commenting it out, read the MQ135 sensor and report the CO2 ppm data on the following platforms:
   
