@@ -73,10 +73,9 @@ Use the Library Manager of the Arduine IDE to download the MQ135 library.
 
 The MQ135_Air_Quality.ino software incorporates the Arduino MQ135 library to perform two functions:
   
-1. When the #define CALIBRATE statement is active, calibrate the MQ135 sensor while running the system outdoors for a couple hours
-   to attain a reference resistance R0 for fresh air.  Replace the number in the software statement '#define RZERO 51.5' with the new value.
+1. Activate the #define CALIBRATE statement by removing the preceding '//' to calibrate the MQ135 sensor while running the system outdoors for a couple hours to attain a reference resistance R0 for fresh air.  The value for RZERO will be displayed on the report platforms.  Average the most recent numbers after a couple hours and then replace the number in the software statement '#define RZERO 51.5' with the new value.
            
-2. When the #define CALIBRATE statement is inactivated by commenting it out, read the MQ135 sensor and report the CO2 ppm data on the following platforms:
+3. Deactivate the #define CALIBRATE statement by commenting it out for normal operation.  The software reads the Q135 sensor and reports the ppm data on the following platforms:
   
 a. computer via USB to Arduino IDE
   
