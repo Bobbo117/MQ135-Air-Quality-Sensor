@@ -258,10 +258,10 @@ void setup()
 void loop()
 {
   //****Read voltage from A0 pin
-  float ADC = analogRead(PIN_MQ135);
+  //float ADC = analogRead(PIN_MQ135);
 
   //***Read Sensor Resistance
-  float R_Sensor = gasSensor.getResistance();
+ // float R_Sensor = gasSensor.getResistance();
   // float R_Sensor = (1023.0/ADC -1.0)*RLOAD;
               
   //print to Serial Monitor
@@ -276,10 +276,6 @@ void loop()
     Serial.print("Air Quality: "); 
     Serial.println(value);
   #endif
-  Serial.print("R_Sensor: "); 
-  Serial.println(R_Sensor);
-  Serial.print("ADC: "); 
-  Serial.println(ADC);
   
   //****Display AQI value on OLED
   #ifdef OLED_
@@ -287,15 +283,12 @@ void loop()
     oled.setCursor(0,0); 
     #ifdef CALIBRATE_
       oled.println("Calibration");
+      oled.println("");
+      oled.print("R0: ");
     #else
       oled.println("Air Quality Index");
     #endif   
     oled.println(value);
-
-    oled.print("A:"); 
-    oled.println(ADC);
-    oled.print("Rs:");
-    oled.println(R_Sensor);
   #endif
   
   //***verify mqtt connection
