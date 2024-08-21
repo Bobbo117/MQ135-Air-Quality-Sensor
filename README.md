@@ -56,7 +56,7 @@ MQ135 pins:
 3. A0 to esp8266 A0 via voltage divider *
 4. D0 unused
 
-* 170K and 330k voltage divider is used to reduce MQ135 5v max output from A0 to ESP8266 or esp32 3.3v input.  The oltage divider is not necessary if using an Arduino board that can handle 5v input voltage.
+* 170K and 330k voltage divider is used to reduce MQ135 5v max output from A0 to ESP8266 or esp32 3.3v input.  The voltage divider is not necessary if using an Arduino board that can handle 5v input voltage.
   
 OLED Display pins (optional):  
 
@@ -73,17 +73,19 @@ Use the Library Manager of the Arduine IDE to download the MQ135 library.
 
 The MQ135_Air_Quality.ino software incorporates the Arduino MQ135 library to perform two functions:
   
-1. Activate the #define CALIBRATE statement by removing the preceding '//' to calibrate the MQ135 sensor while running the system outdoors for a couple hours to attain a reference resistance R0 for fresh air.  The value for RZERO will be displayed on the report platforms.  Average the most recent numbers after a couple hours and then replace the number in the software statement '#define RZERO 51.5' with the new value.
+1. To Calibrate the sensor, Execute the following:
+
+   a. Activate the #define CALIBRATE statement by removing the preceding '//'.
+   
+   b. Replace the #define RLOAD value with the measured resistance in kOhms of your MQ135 board pin A0 to GND, as described in the Concept of Operation section above.
+   
+   c. Plug in the system outdoors for a couple hours to attain a reference resistance R0 for fresh air.  The value for RZERO will be displayed on the report platforms (computer, OLED, HA, ThingSpeak as connected).  Average the most recent numbers after a couple hours and then replace the number in the software statement '#define RZERO xx.xx' with the new value.
            
-3. Deactivate the #define CALIBRATE statement by commenting it out for normal operation.  The software reads the Q135 sensor and reports the ppm data on the following platforms:
-  
-a. computer via USB to Arduino IDE
-  
-b. OLED display via I2C if one is present
-  
-c. Thingspeak.com via WIFI if the #define THINGSPEAK_ statement is not disabled
-  
-d. Home Assistant via MQTT if the #define MQTT_ statement is not disabled
+2. To use the sensor to monitor air quality ececute the following:
+
+   a. Deactivate the #define CALIBRATE statement by replacing the preceding '//'.
+
+   b. Replace the '#define RZERO xx.xxx' with the new value.
 
 NOTES 
 
@@ -114,11 +116,11 @@ BREAKING NEWS UPDATE: Today the MQ135 was hovering around 12,000 and the Shark w
 
 # Further Discussion
 
-The MQ135 board has several components, including the MQ135 sensor, a power LED, an alarm LED, a variable resistor to adjust the alarm level that triggers the alarm LED and the D0 pin, a Load Resistor (RL), as well as some circuitry associated with the digital output.  Each board may be slightly different.  All resistance measurements in this discussion pertain to my specific board.  The MQ135 sensor itself has 6 pins labeled A,A B,B and H,H.  The H pins connect to the heater coil, which measures 35 ohms without power.  The A's are connected to each other, as are the B's.  They are the terminations for Rs, the sensor resistance.  The A's are connected to Vcc (5 volts).  The B's are connected to a board pin labeled A0 and to a fixed load resistor RL whose other end is connected to the ground pin of the board.  The characteristic curve shows that increasing ppm reduces sensor resistance.  The resistance of the sensor and the RL tied to A0 pin form a voltage divider whose voltage increases with increasing PPM (decreasing Rs).  The comparable Rs and RL values insure optimum use of the 10-bit A/D Converter. 
+The MQ135 board has several components, including the MQ135 sensor, a power LED, an alarm LED, a variable resistor to adjust the alarm level that triggers the alarm LED and the D0 pin, a Load Resistor (RL), as well as some circuitry associated with the digital output.  Each board may be slightly different.  All resistance measurements in this discussion pertain to my specific board.  The MQ135 sensor itself has 6 pins labeled A,A B,B and H,H.  The H pins connect to the heater coil, which measures 35 ohms without power.  The A's are connected to each other, as are the B's.  They are the terminations for Rs, the sensor resistance.  The A's are connected to Vcc (5 volts).  The B's are connected to a board pin labeled A0 and to a fixed load resistor RL whose other end is connected to the ground pin of the board.  The characteristic curve shows that increasing ppm reduces sensor resistance.  The resistance of the sensor and the RL tied to A0 pin form a voltage divider whose voltage increases with increasing PPM (decreasing Rs). 
 
 It is worth noting that the value of RL plays no role in calculating the AQI, because the AQI is calculated using the ratio Rs (sensor resistance in normal environment) and Ro (sensor resistance in clean air): 
 The voltage divider relationship is VL/Vcc = RL/(RL + Rs).  Solving for Rs yields Rs = RL(Vcc/Vs - 1).  So the initial resistance Ro = RL(VCC/Vo-1).  The quantity Rs/Ro results in RL being cancelled out because it is in the numerator and denominator. Yay!
-That said, the measured value of RL in KOhms needs to be entered in the software becuasse it is used to calculate the value of Rs.
+That said, the measured value of RL in KOhms needs to be entered in the software becuause it is used to calculate the value of Rs.
 
 Finally, the microcontroller analog input used for this project needs to be 10 bits if you want to use the getResistance command beccause the MQ135 library uses the max value 1023 instead of Vcc in the calculation.
 
