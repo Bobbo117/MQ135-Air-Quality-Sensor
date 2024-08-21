@@ -43,7 +43,7 @@
 //        (Disable unwanted options with leading //)
 //////////////////////////////////////////////////////////////
 
-//#define CALIBRATE         // Comment out if not in calibration mode
+//#define CALIBRATE_         // Comment out if not in calibration mode
 #define OLED_
 #define WIFI_
 #define THINGSPEAK_
@@ -61,8 +61,8 @@
 //////////////////////////////////////////////////////////////
 
 #define PIN_MQ135 A0       // Analog pin on the ESP8266 which connects to the analog output of the sesor. 
-#define RZERO 51.5         // Measured resistance from calibration (8/8/2024 75F, 63% RH in my case)
-#define RLOAD 20 //1.612        // Measured resistance Kohms pin A0 to GND with power off
+#define RZERO 9.47 //5.93 //51.5         // Measured resistance from calibration (8/8/2024 75F, 63% RH in my case)
+#define RLOAD 1.612        // Measured resistance Kohms pin A0 to GND with power off
 
 //////////////////////////////////////////////////////////////  
 //*******         Libraries          ***********//
