@@ -1,5 +1,5 @@
 
-#define VERSION "MQ135_Air_Quality_2024_0816"
+#define VERSION "MQ135_Air_Quality_2024_0822"
 
 /*
    IMPORTANT - read project description at
@@ -137,8 +137,8 @@ MQ135 gasSensor(PIN_MQ135, RZERO, RLOAD);
 //***Variable Definitions
 
   unsigned long reportPeriod_msec = 15000;        // Report period in msec
-  float ppms[8];                                  // array used to calculate rolling average of ppm data
-  int ppmsLength = 8;                             // array length indicates number of data points to use for rolling average
+  float ppms[8];                                  // array used to store and calculate rolling average of ppm data
+  int ppmsLength = 8;                             // array length 
   int validData = 0;                              // number of entries in the array which are valid data for use in rolling average
   
 //   ***********************
@@ -212,6 +212,7 @@ void setup()
 {
 
   Serial.begin(115200);
+  ppms[0]=1;                                      // ppms[0] is index pointing to first data location
 
   //Setup OLED Display
   #ifdef OLED_
@@ -263,14 +264,7 @@ void setup()
 //   **  loop()  **
 //   ***********************
 void loop()
-{
-  //****Read voltage from A0 pin
-  //float ADC = analogRead(PIN_MQ135);
-
-  //***Read Sensor Resistance
- // float R_Sensor = gasSensor.getResistance();
-  // float R_Sensor = (1023.0/ADC -1.0)*RLOAD;
-              
+{            
   //print to Serial Monitor
   #ifdef CALIBRATE_
     //****Read sensor resistance
@@ -296,7 +290,6 @@ void loop()
   {
     validData ++;
   }
-  Serial.print("validData: ");Serial.println(validData);
   
   //***Compute rolling average
   float total = 0;
@@ -305,7 +298,7 @@ void loop()
     total=total+ppms[i];   
   }
   float avg = total/(validData);   
-  Serial.print("Rolling Average: ");Serial.println(avg);
+  Serial.print("Rolling Average ");Serial.print(validData); Serial.print(": ");Serial.println(avg);
   
   //****Display AQI value on OLED
   #ifdef OLED_
@@ -320,9 +313,9 @@ void loop()
       oled.print(avg);
     #else
       oled.println("Air Quality Index");
-      oled.println(int(value));
-      oled.println("Average:");
-      oled.print(int(avg));
+      oled.print(int(value));oled.println(" PPM");
+      oled.print("Average "); oled.print(validData); oled.println(":");
+      oled.print(int(avg));oled.print(" PPM");
     #endif   
   #endif
 
