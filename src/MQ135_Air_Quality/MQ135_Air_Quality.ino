@@ -74,8 +74,6 @@
 #include "MQ135.h"        // <-- from Arduino Library Manager
 MQ135 gasSensor(PIN_MQ135, RZERO, RLOAD);
 
-unsigned long reportPeriod_msec = 15000;        // Report period in msec
-
 //***Wifi libraries
 #ifdef WIFI_
   #ifdef ESP32_
@@ -134,6 +132,15 @@ unsigned long reportPeriod_msec = 15000;        // Report period in msec
   String THINGSPEAK_API_KEY = SECRET_THINGSPEAK_API_KEY;  
 #endif
 
+
+
+//***Variable Definitions
+
+  unsigned long reportPeriod_msec = 15000;        // Report period in msec
+  float ppms[8];                                  // array used to calculate rolling average of ppm data
+  int ppmsLength = 8;                             // array length indicates number of data points to use for rolling average
+  int validData = 0;                              // number of entries in the array which are valid data for use in rolling average
+  
 //   ***********************
 //   **  MQTT reconnect() **
 //   ***********************
@@ -234,7 +241,7 @@ void setup()
       Serial.print(".");
     }
     Serial.println("");
-    Serial.println("WIFI onnected");
+    Serial.println("WIFI connected");
 
     #ifdef OLED_
       oled.println("connected");
@@ -276,6 +283,29 @@ void loop()
     Serial.print("Air Quality: "); 
     Serial.println(value);
   #endif
+
+  //***Store in array
+  ppms[int(ppms[0])]=value;
+  //Serial.print(ppms[0]); Serial.print(": ");Serial.println(ppms[int(ppms[0])]);
+  ppms[0]++;
+  if (int(ppms[0]) > ppmsLength-1)
+  {
+    ppms[0]=1;
+  }  
+  if (validData < ppmsLength-1)
+  {
+    validData ++;
+  }
+  Serial.print("validData: ");Serial.println(validData);
+  
+  //***Compute rolling average
+  float total = 0;
+  for (int i=1; i< validData+1; i++)
+  {
+    total=total+ppms[i];   
+  }
+  float avg = total/(validData);   
+  Serial.print("Rolling Average: ");Serial.println(avg);
   
   //****Display AQI value on OLED
   #ifdef OLED_
@@ -283,13 +313,20 @@ void loop()
     oled.setCursor(0,0); 
     #ifdef CALIBRATE_
       oled.println("Calibration");
-      oled.println("");
+      //oled.println("");
       oled.print("R0: ");
+      oled.println(value);
+      oled.println("Average:");
+      oled.print(avg);
     #else
       oled.println("Air Quality Index");
+      oled.println(int(value));
+      oled.println("Average:");
+      oled.print(int(avg));
     #endif   
-    oled.println(value);
   #endif
+
+  value=avg;                      // Report the avg to MQTT, Thingspeak to eliminate jitter
   
   //***verify mqtt connection
   #ifdef MQTT_
