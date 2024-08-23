@@ -158,6 +158,8 @@ My Shark Clean Sense IQ Model HP102 Air Purifier in the basement indicates 97 - 
 
 ![Coffee Humidex](https://github.com/Bobbo117/MQ135-Air-Quality-Sensor/blob/main/Images/HA%20AQI%20Coffee%20Humidex.jpg)
 
+![Humidex Coffee](https://github.com/Bobbo117/MQ135-Air-Quality-Sensor/blob/main/Images/HA%20AQI%20Humidex%20Coffee.jpg)
+
 Are these measurement accurate?  I don't know.  Are they useful? I think so, because they reflect trends if not precise concentrations.  
 
 BREAKING NEWS UPDATE: Today the MQ135 was hovering around 12,000 and the Shark was indicating 78% (4, 18, & 21 ppm of pm1.0, pm2.5, & pm10 particles).  I checked the EPA's AirNow App and found outside AQI is 60 (moderate) due to wildfires. Cool!
