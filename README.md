@@ -34,7 +34,7 @@ The A's are connected to each other, as are the B's.  They are the terminations 
 
 The A's are connected to Vcc (5 volts).  
 
-The B's are connected to a board pin labeled A0 and to a fixed load resistor RL whose other end is connected to the ground pin of the board. 
+The B's are connected to a board pin labeled A0 and to a fixed load resistor RL on the board whose other end is connected to the ground pin of the board. 
 
 The following excerpt from the sensor datasheet specifies sensitivity characteristics. 
 
