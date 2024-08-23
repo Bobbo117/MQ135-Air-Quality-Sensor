@@ -309,8 +309,8 @@ void loop()
       //oled.println("");
       oled.print("R0: ");
       oled.println(value);
-      oled.println("Average:");
-      oled.print(avg);
+      oled.print("Average "); oled.print(validData); oled.println(":");
+      oled.print(avg);;oled.print(" kOhms");
     #else
       oled.println("Air Quality Index");
       oled.print(int(value));oled.println(" PPM");
