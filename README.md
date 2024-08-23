@@ -134,7 +134,8 @@ The MQ135_Air_Quality.ino software incorporates the Arduino MQ135 library to per
 
    c. The OLED display will show the latest ppm measurement as well as the average of the last 7 measurements.
 
-   ![OLED AQI](
+   ![OLED AQI](https://github.com/Bobbo117/MQ135-Air-Quality-Sensor/blob/main/Images/OLED%20AQI.jpg)
+   
 NOTES 
 
   1. The MQ135 must be powered on for 48 hours before first use.
