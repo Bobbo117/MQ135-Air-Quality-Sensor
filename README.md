@@ -158,23 +158,23 @@ Examples of MQ135 measurements after calibration (Calibration outside conditions
     
 My Shark Clean Sense IQ Model HP102 Air Purifier in the basement indicates 97 - 100 % clean air    
 
-An interesting scenario follows.  The sensor is in the basement. 
+# Scenario 1
 
-The first floor is vacant, we sleep on the second floor with the window open.  
+The sensor is in the basement. The first floor is vacant, we sleep on the second floor with the window open.  
 
-A little after 4:14 a.m., I get up to pee.  We see a bump in CO2 in the basement.
+A little after 4:14 a.m., I got up to pee.  We see a bump in CO2 in the basement.
 
-Follow the timeline on the graph screenshot below.
+The timeline is represented on the graph screenshot below.
 
-I try to get back to sleep, but give up around 4:48, when I go to the first floor to make coffee then head back upstairs.  
+I tried to get back to sleep, but gave up around 4:48, when I went to the first floor to make coffee, creating another bump in CO2, then head back upstairs.  
 
-The humidex is activated around that time, causing a steep reduction in ppm.
+The humidex activated around that time, causing a steep reduction in ppm.
 
 ![Coffee Humidex](https://github.com/Bobbo117/MQ135-Air-Quality-Sensor/blob/main/Images/HA%20AQI%20Coffee%20Humidex.jpg)
 
-Then arond 5:34, I head down for a second cup.  
+Then arond 5:34, I heaedd down for a second cup.  
 
-While I'm there, I spent]d a couple extra miutes to empty the dishwasher, creating quite the uptick in CO2!
+While there, I spent a couple extra miutes emptying the dishwasher, which created quite the uptick in CO2!
 
 See the graph screenshot below.
 
@@ -182,9 +182,9 @@ See the graph screenshot below.
 
 The above two screenshots are from Home Assistant.  The same can be created on a free Thingspeak account.
 
-Are these measurement accurate?  I don't know.  Are they useful? I think so, because they reflect trends if not precise concentrations.  
+# Scenario 2
 
-AUGUST 14 UPDATE: On August 14, the MQ135 was hovering around 16,000 and the Shark was indicating 78% (4, 18, & 21 ppm of pm1.0, pm2.5, & pm10 particles): 
+On August 14, the MQ135 was hovering around 16,000 and the Shark was indicating 78% (4, 18, & 21 ppm of pm1.0, pm2.5, & pm10 particles): 
 
 ![a](https://github.com/Bobbo117/MQ135-Air-Quality-Sensor/blob/main/Images/HA%20AQI%2017K.jpg)
 
@@ -196,7 +196,9 @@ I checked the EPA's AirNow App and found outside AQI is 60 (moderate) due to wil
 
 The MQ135 must be powered on for 48 hours before first use.
 
-The microcontroller analog input used for this project needs to be 10 bits beccause the MQ135 library uses the max value 1023 instead of Vcc in the calculation.
+The microcontroller analog input used for this project needs to be 10 bits because the MQ135 library uses the max value 1023 instead of Vcc in the calculation.
+
+Are the MQ135 measurements accurate?  I don't know.  Are they useful? I think so, because they reflect trends if not precise concentrations.  
 
 # Someday:
 
