@@ -113,13 +113,21 @@ The MQ135_Air_Quality.ino software incorporates the Arduino MQ135 library to per
    
    b. Replace the #define RLOAD value with the measured resistance in kOhms of your MQ135 board pin A0 to GND, as described in the Concept of Operation section above.
    
-   c. Plug in the system outdoors for a couple hours to attain a reference resistance R0 for fresh air.  The value for RZERO will be displayed on the report platforms (computer, OLED, HA, ThingSpeak as connected).  Average the most recent numbers after a couple hours and then replace the number in the software statement '#define RZERO xx.xx' with the new value.
+   c. Plug in the system outdoors for a couple hours to attain a reference resistance R0 for fresh air.
+
+   The value for RZERO will be displayed on the report platforms (computer, OLED, HA, ThingSpeak as connected).
+
+   Average the most recent numbers after a couple hours and then replace the number in the software statement '#define RZERO xx.xx' with the new value.
+
+   The OLED display will show the R0 value and the rolling average of the last 7 values.
            
-2. To use the sensor to monitor air quality ececute the following:
+3. To use the sensor to monitor air quality ececute the following:
 
    a. Deactivate the #define CALIBRATE statement by replacing the preceding '//'.
 
    b. Replace the '#define RZERO xx.xxx' with the new value.
+
+   c. The OLED display will show the latest ppm measurement as well as the average of the last 7 measurements.
 
 NOTES 
 
