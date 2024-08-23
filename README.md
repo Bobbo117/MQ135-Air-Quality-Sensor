@@ -117,8 +117,10 @@ The MQ135_Air_Quality.ino software incorporates the Arduino MQ135 library to per
    a. Activate the #define CALIBRATE statement by removing the preceding '//'.
    
    b. Replace the #define RLOAD value with the measured resistance in kOhms of your MQ135 board pin A0 to GND, as described in the Concept of Operation section above.
+
+   c. Recompile the software and download to the microcontroller.
    
-   c. Plug in the system outdoors for a couple hours to attain a reference resistance R0 for fresh air.
+   d. Plug in the system outdoors for a few hours until the computed R0 stabilizes to attain a reference resistance R0 for fresh air.
 
    The value for RZERO will be displayed on the report platforms (computer, OLED, HA, ThingSpeak as connected).
 
@@ -134,7 +136,9 @@ The MQ135_Air_Quality.ino software incorporates the Arduino MQ135 library to per
 
    b. Replace the '#define RZERO xx.xxx' with the new value.
 
-   c. The OLED display will show the latest ppm measurement as well as the average of the last 7 measurements.
+   c. Recompile the software and download to the microcontroller.
+
+   d. The OLED display will show the latest ppm measurement as well as the average of the last 7 measurements.
 
    ![OLED AQI](https://github.com/Bobbo117/MQ135-Air-Quality-Sensor/blob/main/Images/OLED%20AQI.jpg)
    
@@ -179,6 +183,12 @@ BREAKING NEWS UPDATE: Today the MQ135 was hovering around 16,000 and the Shark w
 # Further Discussion
 
 The microcontroller analog input used for this project needs to be 10 bits beccause the MQ135 library uses the max value 1023 instead of Vcc in the calculation.
+
+For details about the parameters below, see:
+
+http://davidegironi.blogspot.com/2014/01/cheap-co2-meter-using-mq135-sensor-with.html
+
+https://hackaday.io/project/3475-sniffing-trinket/log/12363-mq135-arduino-library
 
 # Someday:
 
