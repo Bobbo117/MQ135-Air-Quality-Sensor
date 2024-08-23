@@ -42,6 +42,9 @@ The following excerpt from the sensor datasheet specifies sensitivity characteri
 
 Consider that the [CO2.Earth](https://www.co2.earth/) website indicates clean outside air contains more than 400 ppm CO2, and that inside air can exceed 1000 ppm easily.  
 
+![image](https://github.com/user-attachments/assets/dbd9c7ad-27ea-407b-a662-c83ac738bfca)
+
+
 The MQ135 properties suggest possible utility as a CO2 detector as well as a general air quality monitor.  
 
 # MQ135 Board Concept of Operation
@@ -119,7 +122,9 @@ The MQ135_Air_Quality.ino software incorporates the Arduino MQ135 library to per
 
    Average the most recent numbers after a couple hours and then replace the number in the software statement '#define RZERO xx.xx' with the new value.
 
-   The OLED display will show the R0 value and the rolling average of the last 7 values.
+   The OLED display will show the R0 value and the rolling average of the last 7 values:
+
+   
            
 3. To use the sensor to monitor air quality ececute the following:
 
