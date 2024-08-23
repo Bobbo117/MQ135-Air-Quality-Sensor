@@ -124,7 +124,7 @@ The MQ135_Air_Quality.ino software incorporates the Arduino MQ135 library to per
 
    The OLED display will show the R0 value and the rolling average of the last 7 values:
 
-   https://github.com/Bobbo117/MQ135-Air-Quality-Sensor/blob/main/Images/OLED%20Calibration.jpg
+   [AQI Calibration](https://github.com/Bobbo117/MQ135-Air-Quality-Sensor/blob/main/Images/OLED%20Calibration.jpg)
            
 3. To use the sensor to monitor air quality ececute the following:
 
