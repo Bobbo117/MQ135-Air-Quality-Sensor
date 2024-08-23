@@ -158,13 +158,19 @@ Examples of MQ135 measurements after calibration (Calibration outside conditions
     
 My Shark Clean Sense IQ Model HP102 Air Purifier in the basement indicates 97 - 100 % clean air    
 
+An interesting scenario follows.  The sensor is in the basement.  The first floor is vacant, we sleep on the second floor with the window open.  A little after 4:14 a.m., I get up to pee.  We see a bump in CO2 in the basement!  I try to get back to sleep, but give up around 4:48, when I go to the first floor to make coffee and into the basement and turn on the humidex, then head back upstairs.  We see a reduction in ppm due to the humidex:
+
 ![Coffee Humidex](https://github.com/Bobbo117/MQ135-Air-Quality-Sensor/blob/main/Images/HA%20AQI%20Coffee%20Humidex.jpg)
+
+Then arond 5:34, I head down for a second cup.  While I'm there, I empty the dishwasher, creating quite the uptick:
 
 ![Humidex Coffee](https://github.com/Bobbo117/MQ135-Air-Quality-Sensor/blob/main/Images/HA%20AQI%20Humidex%20Coffee.jpg)
 
+The above two screenshots are from Home Assistant.  The same can be created on a free Thingspeak account.
+
 Are these measurement accurate?  I don't know.  Are they useful? I think so, because they reflect trends if not precise concentrations.  
 
-BREAKING NEWS UPDATE: Today the MQ135 was hovering around 12,000 and the Shark was indicating 78% (4, 18, & 21 ppm of pm1.0, pm2.5, & pm10 particles).  I checked the EPA's AirNow App and found outside AQI is 60 (moderate) due to wildfires. Cool!
+BREAKING NEWS UPDATE: Today the MQ135 was hovering around 16,000 and the Shark was indicating 78% (4, 18, & 21 ppm of pm1.0, pm2.5, & pm10 particles).  I checked the EPA's AirNow App and found outside AQI is 60 (moderate) due to wildfires. Cool!
 
 ![a](https://github.com/Bobbo117/MQ135-Air-Quality-Sensor/blob/main/Images/HA%20AQI%2017K.jpg)
 
