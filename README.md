@@ -17,25 +17,6 @@ d. Home Assistant via MQTT
 
 The MQ135 sensor ([datasheet here](https://www.olimex.com/Products/Components/Sensors/Gas/SNS-MQ135/resources/SNS-MQ135.pdf)) uses the presence of certain gases to change the electrical resistance of the sensor.
 
-The following excerpt from the datasheet depicts the internal structure of the sensor. The sensor itself does not include the load resister RL shown in the diagram or any of the board components.
-
-![image](https://github.com/user-attachments/assets/4af4b039-8945-414b-9be0-84ea8c5ca75d)
-
-The following excerpt from the datasheet datasheet specifies sensitivity characteristics. 
-
-Consider that the [CO2.Earth](https://www.co2.earth/) website indicates clean outside air contains more than 400 ppm CO2, and that inside air can exceed 1000 ppm easily.  
-
-The MQ135 properties suggest possible utility as a CO2 detector as well as a general air quality monitor.  
-
-![image](https://github.com/user-attachments/assets/bfa19113-d05b-4a2e-a1c8-9897aea4ffdc)
-
-
-# MQ135 Board Concept of Operation
-
-The MQ135 board has several components, including the MQ135 sensor, a power LED, an alarm LED, a variable resistor to adjust the alarm level that triggers the alarm LED and the D0 pin, a Load Resistor (RL), as well as additional circuitry associated with the digital output.  
-
-Each board may be slightly different.  All resistance measurements in this discussion pertain to my specific board.  
-
 The MQ135 sensor itself has 6 pins labeled A,A B,B and H,H.  The H pins connect to the heater coil, which measures 35 ohms without power.  
 
 The A's are connected to each other, as are the B's.  They are the terminations for Rs, the sensor resistance.  
@@ -43,6 +24,24 @@ The A's are connected to each other, as are the B's.  They are the terminations 
 The A's are connected to Vcc (5 volts).  
 
 The B's are connected to a board pin labeled A0 and to a fixed load resistor RL whose other end is connected to the ground pin of the board.  
+
+The following excerpt from the datasheet depicts the internal structure of the sensor. The sensor itself does not include the load resister RL shown in the diagram or any of the board components.
+
+![image](https://github.com/user-attachments/assets/4af4b039-8945-414b-9be0-84ea8c5ca75d)
+
+The following excerpt from the sensor datasheet specifies sensitivity characteristics. 
+
+![image](https://github.com/user-attachments/assets/bfa19113-d05b-4a2e-a1c8-9897aea4ffdc)
+
+Consider that the [CO2.Earth](https://www.co2.earth/) website indicates clean outside air contains more than 400 ppm CO2, and that inside air can exceed 1000 ppm easily.  
+
+The MQ135 properties suggest possible utility as a CO2 detector as well as a general air quality monitor.  
+
+# MQ135 Board Concept of Operation
+
+The MQ135 board has several components, including the MQ135 sensor, a power LED, an alarm LED, a variable resistor to adjust the alarm level that triggers the alarm LED and the D0 pin, a Load Resistor (RL), as well as additional circuitry associated with the digital output.  
+
+Each board may be slightly different.  All resistance measurements in this discussion pertain to my specific board.  
 
 The characteristic curve of the sensor shows that increasing ppm reduces sensor resistance.  
 
