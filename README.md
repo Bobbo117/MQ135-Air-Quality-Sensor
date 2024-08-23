@@ -14,6 +14,9 @@ d. Home Assistant via MQTT
 
 ![image](https://github.com/user-attachments/assets/be24d9ab-758d-421a-aa32-b21a0685b0c2) ![image](https://github.com/user-attachments/assets/d0af170c-036d-4ee3-a305-74bce83af16a)
 
+The MQ135 board has several components, including the MQ135 sensor, a power LED, an alarm LED, a variable resistor to adjust the alarm level that triggers the alarm LED and the D0 pin, a Load Resistor (RL), as well as additional circuitry associated with the digital output.  The board has 4 pins:  Vcc (5v), GND, A0 (Analog voltage), and D0 (digital signal).  The digital signal is low when the voltage exceeds the trigger level set by the potentiometer.
+
+# MQ135 Air Quality Sensor
 
 The MQ135 sensor ([datasheet here](https://www.olimex.com/Products/Components/Sensors/Gas/SNS-MQ135/resources/SNS-MQ135.pdf)) uses the presence of certain gases to change the electrical resistance of the sensor. 
 
@@ -38,8 +41,6 @@ Consider that the [CO2.Earth](https://www.co2.earth/) website indicates clean ou
 The MQ135 properties suggest possible utility as a CO2 detector as well as a general air quality monitor.  
 
 # MQ135 Board Concept of Operation
-
-The MQ135 board has several components, including the MQ135 sensor, a power LED, an alarm LED, a variable resistor to adjust the alarm level that triggers the alarm LED and the D0 pin, a Load Resistor (RL), as well as additional circuitry associated with the digital output.  
 
 Each board may be slightly different.  All resistance measurements in this discussion pertain to my specific board.  
 
@@ -134,7 +135,7 @@ Examples of MQ135 measurements after calibration (Calibration outside conditions
 
 (Humidex is a device which draws air from the upstairs to expel damp air from the finished basement to the outside.)
     
-Shark Clean Sense IQ Model HP102 Air Purifier in basement indicates 97 - 100 % clean air    
+My Shark Clean Sense IQ Model HP102 Air Purifier in the basement indicates 97 - 100 % clean air    
 
 Are these measurement accurate?  I don't know.  Are they useful? I think so, because they reflect trends if not precise concentrations.  
 
