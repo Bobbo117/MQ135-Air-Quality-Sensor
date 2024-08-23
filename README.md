@@ -14,7 +14,11 @@ d. Home Assistant via MQTT
 
 ![image](https://github.com/user-attachments/assets/be24d9ab-758d-421a-aa32-b21a0685b0c2) ![image](https://github.com/user-attachments/assets/d0af170c-036d-4ee3-a305-74bce83af16a)
 
-The MQ135 board has several components, including the MQ135 sensor, a power LED, an alarm LED, a variable resistor to adjust the alarm level that triggers the alarm LED and the D0 pin, a Load Resistor (RL), as well as additional circuitry associated with the digital output.  The board has 4 pins:  Vcc (5v), GND, A0 (Analog voltage), and D0 (digital signal).  The digital signal is low when the voltage exceeds the trigger level set by the potentiometer.
+The MQ135 board has several components, including the MQ135 sensor, a power LED, an alarm LED, a variable resistor to adjust the alarm level that triggers the alarm LED and the D0 pin, a Load Resistor (RL), as well as additional circuitry associated with the digital output.  
+
+The board has 4 pins:  Vcc (5v), GND, A0 (Analog voltage), and D0 (digital signal).  
+
+The digital signal is low when the voltage exceeds the trigger level set by the potentiometer.
 
 # MQ135 Air Quality Sensor
 
@@ -89,9 +93,9 @@ OLED Display pins (optional):
 
 # MQ135 Sensor Board Calibration
 
-The datasheet suggests calibrating under strict conditions that would require an environmental chamber and with a specific load resistance.  
+The datasheet suggests calibrating under strict conditions that would require an environmental chamber and with a specific load resistance (20K ohms).  
 
-Since we don't have a chamber, and the board comes with a fixed load resistance the may not comply, we calibrate the unit outdoors under clear conditions and hope for the best.  
+Since we don't have a chamber, and the board comes with a fixed load resistance (1.7K ohms) that may not comply, we calibrate the unit outdoors under clear conditions and hope for the best.  
 
 Try to pick a day when outside temperature and humidity conditions match normal inside conditions. 
 
