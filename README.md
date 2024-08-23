@@ -104,6 +104,8 @@ Try to pick a day when outside temperature and humidity conditions match normal 
 
 Also, consider using the EPA's ([AirNow App](https://www.airnow.gov/airnow-mobile-app/)) to verify air quality.
 
+![airnow 13](https://github.com/Bobbo117/MQ135-Air-Quality-Sensor/blob/main/Images/EPA%20AQI%2013.jpg)
+
 # Software
 
 Use the Library Manager of the Arduine IDE to download the MQ135 library.  
