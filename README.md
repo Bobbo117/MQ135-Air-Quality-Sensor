@@ -166,6 +166,8 @@ BREAKING NEWS UPDATE: Today the MQ135 was hovering around 12,000 and the Shark w
 
 ![a](https://github.com/Bobbo117/MQ135-Air-Quality-Sensor/blob/main/Images/HA%20AQI%2017K.jpg)
 
+![b](https://github.com/Bobbo117/MQ135-Air-Quality-Sensor/blob/main/Images/EPA%20AQI%2060.jpg)
+
 # Further Discussion
 
 The microcontroller analog input used for this project needs to be 10 bits beccause the MQ135 library uses the max value 1023 instead of Vcc in the calculation.
