@@ -141,10 +141,6 @@ The MQ135_Air_Quality.ino software incorporates the Arduino MQ135 library to per
    d. The OLED display will show the latest ppm measurement as well as the average of the last 7 measurements.
 
    ![OLED AQI](https://github.com/Bobbo117/MQ135-Air-Quality-Sensor/blob/main/Images/OLED%20AQI.jpg)
-   
-NOTES 
-
-  1. The MQ135 must be powered on for 48 hours before first use.
 
 # Results
 
@@ -178,7 +174,7 @@ The humidex is activated around that time, causing a steep reduction in ppm.
 
 Then arond 5:34, I head down for a second cup.  
 
-While I'm there, I empty the dishwasher, creating quite the uptick
+While I'm there, I spent]d a couple extra miutes to empty the dishwasher, creating quite the uptick in CO2!
 
 See the graph screenshot below.
 
@@ -188,7 +184,7 @@ The above two screenshots are from Home Assistant.  The same can be created on a
 
 Are these measurement accurate?  I don't know.  Are they useful? I think so, because they reflect trends if not precise concentrations.  
 
-BREAKING NEWS UPDATE: On August 14, the MQ135 was hovering around 16,000 and the Shark was indicating 78% (4, 18, & 21 ppm of pm1.0, pm2.5, & pm10 particles).  
+AUGUST 14 UPDATE: On August 14, the MQ135 was hovering around 16,000 and the Shark was indicating 78% (4, 18, & 21 ppm of pm1.0, pm2.5, & pm10 particles): 
 
 ![a](https://github.com/Bobbo117/MQ135-Air-Quality-Sensor/blob/main/Images/HA%20AQI%2017K.jpg)
 
@@ -197,6 +193,8 @@ I checked the EPA's AirNow App and found outside AQI is 60 (moderate) due to wil
 ![b](https://github.com/Bobbo117/MQ135-Air-Quality-Sensor/blob/main/Images/EPA%20AQI%2060.jpg)
 
 # Further Discussion
+
+The MQ135 must be powered on for 48 hours before first use.
 
 The microcontroller analog input used for this project needs to be 10 bits beccause the MQ135 library uses the max value 1023 instead of Vcc in the calculation.
 
