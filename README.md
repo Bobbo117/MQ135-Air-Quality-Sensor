@@ -184,12 +184,6 @@ BREAKING NEWS UPDATE: Today the MQ135 was hovering around 16,000 and the Shark w
 
 The microcontroller analog input used for this project needs to be 10 bits beccause the MQ135 library uses the max value 1023 instead of Vcc in the calculation.
 
-For details about the parameters below, see:
-
-http://davidegironi.blogspot.com/2014/01/cheap-co2-meter-using-mq135-sensor-with.html
-
-https://hackaday.io/project/3475-sniffing-trinket/log/12363-mq135-arduino-library
-
 # Someday:
 
 Determine accuracy
