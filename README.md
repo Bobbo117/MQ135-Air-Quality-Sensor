@@ -85,7 +85,7 @@ MQ135 pins:
 
 * 170K and 330k voltage divider is used to reduce MQ135 5v max output from A0 to ESP8266 or esp32 3.3v input.  The voltage divider is not necessary if using an Arduino board that can handle 5v input voltage.
   
-OLED Display pins (optional):  
+OLED Display pins:  
 
 ![image](https://github.com/user-attachments/assets/74b7fedc-3a7a-4865-a162-2cde44a472d6)
 
@@ -172,9 +172,9 @@ The humidex activated around that time, causing a steep reduction in ppm.
 
 ![Coffee Humidex](https://github.com/Bobbo117/MQ135-Air-Quality-Sensor/blob/main/Images/HA%20AQI%20Coffee%20Humidex.jpg)
 
-Then arond 5:34, I heaedd down for a second cup.  
+Then arond 5:34, I headed back down for a second cup.  
 
-While there, I spent a couple extra miutes emptying the dishwasher, which created quite the uptick in CO2!
+While there, I spent a couple extra minutes emptying the dishwasher, which created quite the uptick in CO2!
 
 See the graph screenshot below.
 
