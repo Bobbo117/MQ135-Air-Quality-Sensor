@@ -162,9 +162,7 @@ My Shark Clean Sense IQ Model HP102 Air Purifier in the basement indicates 97 - 
 
 The sensor is in the basement. The first floor is vacant, we sleep on the second floor with the window open.  
 
-A little after 4:14 a.m., I got up to pee.  We see a bump in CO2 in the basement.
-
-The timeline is represented on the graph screenshot below.
+A little after 4:14 a.m., I got up to pee.  We see a bump in CO2 in the basement, as indicated on the timeline screenshot below.
 
 I tried to get back to sleep, but gave up around 4:48, when I went to the first floor to make coffee, creating another bump in CO2, then head back upstairs.  
 
@@ -174,9 +172,7 @@ The humidex activated around that time, causing a steep reduction in ppm.
 
 Then arond 5:34, I headed back down for a second cup.  
 
-While there, I spent a couple extra minutes emptying the dishwasher, which created quite the uptick in CO2!
-
-See the graph screenshot below.
+While there, I spent a couple extra minutes emptying the dishwasher, which created quite the uptick in CO2 (Screenshot below).
 
 ![Humidex Coffee](https://github.com/Bobbo117/MQ135-Air-Quality-Sensor/blob/main/Images/HA%20AQI%20Humidex%20Coffee.jpg)
 
@@ -205,3 +201,13 @@ Are the MQ135 measurements accurate?  I don't know.  Are they useful? I think so
 Determine accuracy
     
 Integrate the MQ-2, 3, 4, 5, 6, 7, 8, 9 sensors
+
+# Attributions and References
+
+For details about the parameters below, see:
+
+http://davidegironi.blogspot.com/2014/01/cheap-co2-meter-using-mq135-sensor-with.html
+
+https://hackaday.io/project/3475-sniffing-trinket/log/12363-mq135-arduino-library
+
+https://gml.noaa.gov/ccgg/trends/gl_data.html
