@@ -194,6 +194,20 @@ The MQ135 must be powered on for 48 hours before first use.
 
 The microcontroller analog input used for this project needs to be 10 bits because the MQ135 library uses the max value 1023 instead of Vcc in the calculation.
 
+This project makes no effort to correct for temperature or humidity.
+
+As an option, this project interfaces with Home Assistant (HA) via topic "aqi/mq135".  To implement it in HA, open the file editor to mqtt.yaml, and enter the following under the sensor section:
+- unique_id: mq135
+  name: "MQ135"
+  state_topic: "aqi/mq135"
+  qos: 0
+  unit_of_measurement: "ppm"
+
+![image](https://github.com/user-attachments/assets/3cf2f138-5b63-41d2-93ad-2f90cacaa56a)
+
+![image](https://github.com/user-attachments/assets/66477e56-1246-45c4-81e2-772616c45629)
+
+
 Are the MQ135 measurements accurate?  I don't know.  Are they useful? I think so, because they reflect trends if not precise concentrations.  
 
 # Someday:
@@ -204,7 +218,7 @@ Integrate the MQ-2, 3, 4, 5, 6, 7, 8, 9 sensors
 
 # Attributions and References
 
-For details about the parameters below, see:
+For details about the MQ135.h library parameters see:
 
 http://davidegironi.blogspot.com/2014/01/cheap-co2-meter-using-mq135-sensor-with.html
 
