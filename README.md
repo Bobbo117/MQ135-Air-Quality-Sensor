@@ -197,11 +197,17 @@ The microcontroller analog input used for this project needs to be 10 bits becau
 This project makes no effort to correct for temperature or humidity.
 
 As an option, this project interfaces with Home Assistant (HA) via topic "aqi/mq135".  To implement it in HA, open the file editor to mqtt.yaml, and enter the following under the sensor section:
+
 - unique_id: mq135
+  
   name: "MQ135"
+  
   state_topic: "aqi/mq135"
+  
   qos: 0
+  
   unit_of_measurement: "ppm"
+  
 
 ![image](https://github.com/user-attachments/assets/3cf2f138-5b63-41d2-93ad-2f90cacaa56a)
 
