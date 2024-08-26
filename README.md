@@ -188,17 +188,13 @@ I checked the EPA's AirNow App and found outside AQI is 60 (moderate) due to wil
 
 ![b](https://github.com/Bobbo117/MQ135-Air-Quality-Sensor/blob/main/Images/EPA%20AQI%2060.jpg)
 
-# Further Discussion
+# Home Assistant Implementation Option
 
-The MQ135 must be powered on for 48 hours before first use.
+As an option, this project interfaces with Home Assistant (HA) via topic "aqi/mq135".  
 
-The microcontroller analog input used for this project needs to be 10 bits because the MQ135 library uses the max value 1023 instead of Vcc in the calculation.
+To implement it in HA, open the file editor to mqtt.yaml, and enter the following under the sensor section:
 
-This project makes no effort to correct for temperature or humidity.
-
-As an option, this project interfaces with Home Assistant (HA) via topic "aqi/mq135".  To implement it in HA, open the file editor to mqtt.yaml, and enter the following under the sensor section:
-
-- unique_id: mq135
+"- unique_id: mq135"
   
   name: "MQ135"
   
@@ -208,11 +204,25 @@ As an option, this project interfaces with Home Assistant (HA) via topic "aqi/mq
   
   unit_of_measurement: "ppm"
   
+Save the file and open the dashboard User Interface (Lovelace in my case) to create a gauge card: 
+
 
 ![image](https://github.com/user-attachments/assets/3cf2f138-5b63-41d2-93ad-2f90cacaa56a)
 
+
+Create a History Graph Card with the following parameters (or not!):
+
+
 ![image](https://github.com/user-attachments/assets/66477e56-1246-45c4-81e2-772616c45629)
 
+
+# Further Discussion
+
+The MQ135 must be powered on for 48 hours before first use.
+
+The microcontroller analog input used for this project needs to be 10 bits because the MQ135 library uses the max value 1023 instead of Vcc in the calculation.
+
+This project makes no effort to correct for temperature or humidity.
 
 Are the MQ135 measurements accurate?  I don't know.  Are they useful? I think so, because they reflect trends if not precise concentrations.  
 
