@@ -49,11 +49,6 @@
 #define THINGSPEAK_
 #define MQTT_
 
-// select one:  (Disable unwanted options with leading //)
-//#define ARDUINO_
-//#define ESP32_
-#define ESP8266_      //Only this option has been verified
-
 //////////////////////////////////////////////////////////////  
 //*******         Compile-time Parameters           ***********//
 // IMPORTANT - read project description at
@@ -70,6 +65,11 @@
 // 
 //////////////////////////////////////////////////////////////
 
+//***Select one microprocessor:  (Disable unwanted options with leading //)
+//#define ARDUINO_
+//#define ESP32_
+#define ESP8266_      //Only this option has been verified
+
 //***Sensor library
 #include "MQ135.h"        // <-- from Arduino Library Manager
 MQ135 gasSensor(PIN_MQ135, RZERO, RLOAD);
@@ -78,16 +78,13 @@ MQ135 gasSensor(PIN_MQ135, RZERO, RLOAD);
 #ifdef WIFI_
   #ifdef ESP32_
     #include <WiFi.h>        
-    #define WIFI_SSID SECRET_WIFI_SSID  
-    #define WIFI_PASSWORD SECRET_WIFI_PASSWORD
-    WiFiClient client;
-  #endif    
+   #endif    
   #ifdef ESP8266_
     #include <ESP8266WiFi.h>
-    #define WIFI_SSID SECRET_WIFI_SSID  
-    #define WIFI_PASSWORD SECRET_WIFI_PASSWORD
-    WiFiClient client;
   #endif  
+  #define WIFI_SSID SECRET_WIFI_SSID  
+  #define WIFI_PASSWORD SECRET_WIFI_PASSWORD
+  WiFiClient client;
 #endif
 
 //***Display libraries
@@ -116,7 +113,6 @@ MQ135 gasSensor(PIN_MQ135, RZERO, RLOAD);
   #define DEVICE_NAME "mq135"
   #define LWT_TOPIC "mq135/status/LWT"             // MQTT Last Will & Testament
   #define MQ135_TOPIC "aqi/mq135"                  // MQTT topic for sensor
-  #define MQ135_ADC_TOPIC "aqi/adc"                //MQTT topic for AD Converter (optional)
   #define VERSION_TOPIC "mq135/report/version"     // report software version at connect
   #define RECV_COMMAND_TOPIC "mq135/cms/#"
   #define MSG_BUFFER_SIZE 512                          // for MQTT message payload (growth)
@@ -132,14 +128,12 @@ MQ135 gasSensor(PIN_MQ135, RZERO, RLOAD);
   String THINGSPEAK_API_KEY = SECRET_THINGSPEAK_API_KEY;  
 #endif
 
-
-
 //***Variable Definitions
 
   unsigned long reportPeriod_msec = 15000;        // Report period in msec
-  float ppms[8];                                  // array used to store and calculate rolling average of ppm data
-  int ppmsLength = 8;                             // array length 
-  int validData = 0;                              // number of entries in the array which are valid data for use in rolling average
+  float ppmArray[8];                             // array used to store and calculate rolling average of ppm data
+  int ppmArrayLength = 8;                        // array length 
+  int validArrayData = 0;                        // number of entries in the array which are valid data for use in rolling average
   
 //   ***********************
 //   **  MQTT reconnect() **
@@ -157,8 +151,6 @@ MQ135 gasSensor(PIN_MQ135, RZERO, RLOAD);
       // Publish MQTT announcements...
       mqttClient.publish(LWT_TOPIC, "Connected", true); // let broker know we're connected
       Serial.printf("%s MQTT SENT: %s/Connected\n", myTZ.dateTime("[H:i:s.v]").c_str(), LWT_TOPIC);
-  //Serial.printf("\n%s MQTT SENT: %s/Connected\n", myTZ.dateTime("[H:i:s.v]").c_str(), LWT_TOPIC);
-  
       mqttClient.publish(VERSION_TOPIC, VERSION, true); // report firmware version
       Serial.printf("%s MQTT SENT: Firmware %s\n", myTZ.dateTime("[H:i:s.v]").c_str(), VERSION);
   
@@ -208,13 +200,13 @@ MQ135 gasSensor(PIN_MQ135, RZERO, RLOAD);
 //   ***********************
 //   **  setup()  **
 //   ***********************
+
 void setup()
 {
-
   Serial.begin(115200);
-  ppms[0]=1;                                      // ppms[0] is index pointing to first data location
+  ppmArray[0]=1;                                      // ppmArray[0] is index pointing to first data location
 
-  //Setup OLED Display
+  //***Setup OLED Display
   #ifdef OLED_
     Wire.begin();
     #if OLED_RESET  >= 0
@@ -231,7 +223,7 @@ void setup()
     #endif  
   #endif
   
-  //Setup wifi
+  //***Setup wifi
   #ifdef WIFI_
     Serial.println("Connecting.. ");
     Serial.println(WIFI_SSID);
@@ -249,7 +241,7 @@ void setup()
     #endif
   #endif    
 
-  //Setup mqtt
+  //***Setup mqtt
   #ifdef MQTT_
     mqttClient.setBufferSize(MSG_BUFFER_SIZE);
     mqttClient.setServer(MQTT_SERVER, 1883);
@@ -263,9 +255,10 @@ void setup()
 //   ***********************
 //   **  loop()  **
 //   ***********************
+
 void loop()
 {            
-  //print to Serial Monitor
+  //***print to Serial Monitor
   #ifdef CALIBRATE_
     //****Read sensor resistance
     float value = gasSensor.getRZero();
@@ -279,26 +272,26 @@ void loop()
   #endif
 
   //***Store in array
-  ppms[int(ppms[0])]=value;
-  //Serial.print(ppms[0]); Serial.print(": ");Serial.println(ppms[int(ppms[0])]);
-  ppms[0]++;
-  if (int(ppms[0]) > ppmsLength-1)
+  ppmArray[int(ppmArray[0])]=value;
+  //Serial.print(ppmArray[0]); Serial.print(": ");Serial.println(ppmArray[int(ppmArray[0])]);
+  ppmArray[0]++;
+  if (int(ppmArray[0]) > ppmArrayLength-1)
   {
-    ppms[0]=1;
+    ppmArray[0]=1;
   }  
-  if (validData < ppmsLength-1)
+  if (validArrayData < ppmArrayLength-1)
   {
-    validData ++;
+    validArrayData ++;
   }
   
   //***Compute rolling average
   float total = 0;
-  for (int i=1; i< validData+1; i++)
+  for (int i=1; i< validArrayData+1; i++)
   {
-    total=total+ppms[i];   
+    total=total+ppmArray[i];   
   }
-  float avg = total/(validData);   
-  Serial.print("Rolling Average ");Serial.print(validData); Serial.print(": ");Serial.println(avg);
+  float avg = total/(validArrayData);   
+  Serial.print("Rolling Average ");Serial.print(validArrayData); Serial.print(": ");Serial.println(avg);
   
   //****Display AQI value on OLED
   #ifdef OLED_
@@ -309,12 +302,12 @@ void loop()
       //oled.println("");
       oled.print("R0: ");
       oled.println(value);
-      oled.print("Average "); oled.print(validData); oled.println(":");
+      oled.print("Average "); oled.print(validArrayData); oled.println(":");
       oled.print(avg);;oled.print(" kOhms");
     #else
       oled.println("Air Quality Index");
       oled.print(int(value));oled.println(" PPM");
-      oled.print("Average "); oled.print(validData); oled.println(":");
+      oled.print("Average "); oled.print(validArrayData); oled.println(":");
       oled.print(int(avg));oled.print(" PPM");
     #endif   
   #endif
@@ -349,8 +342,6 @@ void loop()
     {
       sprintf(msg, "%.2f", value);
       mqttClient.publish(MQ135_TOPIC, msg, true);
-      sprintf(msg, "%.2f", value);
-      mqttClient.publish(MQ135_ADC_TOPIC, msg, true);
       lastPublish = millis(); 
     }      
   #endif
@@ -359,27 +350,22 @@ void loop()
   #ifdef THINGSPEAK_
     if (client.connect(server, 80)) // "184.106.153.149" or api.thingspeak.com
     {
-      String postStr = THINGSPEAK_API_KEY;
-      postStr += "&field1=";
-      postStr += String(value);
-      postStr += "r\n";
-      
+      String httpPost = THINGSPEAK_API_KEY+"&field1="+String(value);
       client.print("POST /update HTTP/1.1\n");
       client.print("Host: api.thingspeak.com\n");
       client.print("Connection: close\n");
       client.print("X-THINGSPEAKAPIKEY: " + THINGSPEAK_API_KEY + "\n");
       client.print("Content-Type: application/x-www-form-urlencoded\n");
       client.print("Content-Length: ");
-      client.print(postStr.length());
+      client.print(httpPost.length());
       client.print("\n\n");
-      client.print(postStr);
+      client.print(httpPost);
       client.stop();
       Serial.println("Published Thingspeak");
     }
   #endif
   
-  //****Pause to throttle data rate (thingspeak needs minimum 15 sec delay between updates).
-
-  Serial.println("Waiting...");Serial.println("");
+  //****Pause to throttle data rate.
+  Serial.print(reportPeriod_msec/1000);Serial.println(" second pause..");Serial.println("");
   delay(reportPeriod_msec);
 }
