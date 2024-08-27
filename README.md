@@ -57,14 +57,17 @@ The resistance of the sensor and the RL tied to A0 pin form a voltage divider wh
 
 The sensor resistance, connected to pins Vcc and A0, and the Load resistance, connected between pins A0 and GND, form a voltage divider between Vcc and GND whose midpoint is pin A0. 
 
-When the unit is powered up, the sensor resistance decreases as the concentration of detected gases (mostly CO2 under normal conditions) increases, causing the voltage across the load resistance at pin A0 to increase.  
-
-Additional board circuitry enables setting a potentiometer to determine the level at which the D0 pin and LED trigger.
+You can get feel for this by doing the folowing:
 
 1. Measure the sensor resistance of the MQ135 board (without power applied) between the VCC and the A0 pin.  Mine measures 1750 ohms (1.750 Kohms).
    
 2. Measure the load resistance between the A0 and GND pin.  Mine measures 1720 ohms (1.720 Kohm). You will need to enter the load resistance value in KOhms in the '#define RLOAD' statement in the 
  MQ135_Air_Quality.ino sotware.
+
+
+When the unit is powered up, the sensor resistance decreases as the concentration of detected gases (mostly CO2 under normal conditions) increases, causing the voltage across the load resistance at pin A0 to increase.  
+
+Additional board circuitry enables setting a potentiometer to determine the level at which the D0 pin and LED trigger.
 
 # Hardware Connections
 
@@ -114,21 +117,23 @@ The MQ135_Air_Quality.ino software incorporates the Arduino MQ135 library to per
   
 1. To Calibrate the sensor, Execute the following:
 
-   a. Activate the #define CALIBRATE statement by removing the preceding '//'.
-   
-   b. Replace the #define RLOAD value with the measured resistance in kOhms of your MQ135 board pin A0 to GND, as described in the Concept of Operation section above.
+   a. Measure the load resistance between the A0 and GND pin.  Mine measures 1720 ohms (1.720 Kohm). 
 
-   c. Recompile the software and download to the microcontroller.
+   b. Activate the #define CALIBRATE statement by removing the preceding '//'.
    
-   d. Plug in the system outdoors for a few hours until the computed R0 stabilizes to attain a reference resistance R0 for fresh air.
+   c. Replace the #define RLOAD value with the measured resistance in kOhms of your MQ135 board pin A0 to GND, as described in the Concept of Operation section above.
+
+   d. Recompile the software and download to the microcontroller.
+   
+   e. Plug in the system outdoors for a few hours until the computed R0 stabilizes to attain a reference resistance R0 for fresh air.
 
    The value for RZERO will be displayed on the report platforms (computer, OLED, HA, ThingSpeak as connected).
-
-   Average the most recent numbers after a couple hours and then replace the number in the software statement '#define RZERO xx.xx' with the new value.
 
    The OLED display will show the R0 value and the rolling average of the last 7 values:
 
    ![OLED Calibration](https://github.com/Bobbo117/MQ135-Air-Quality-Sensor/blob/main/Images/OLED%20Calibration.jpg)
+
+   f. Replace the value in the software statement '#define RZERO xx.xx' with the new value.
            
 3. To use the sensor to monitor air quality ececute the following:
 
