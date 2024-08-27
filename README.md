@@ -44,8 +44,7 @@ Consider that the [CO2.Earth](https://www.co2.earth/) website indicates clean ou
 
 ![image](https://github.com/user-attachments/assets/dbd9c7ad-27ea-407b-a662-c83ac738bfca)
 
-
-The MQ135 properties suggest possible utility as a CO2 detector as well as a general air quality monitor.  
+Consider also that our home environment generally does not contain levels of the other gases that this sensor detects.  If that is true, then the MQ135 properties suggest possible utility as a CO2 detector as well as a general air quality monitor.  
 
 # MQ135 Board Concept of Operation
 
@@ -224,6 +223,10 @@ Create a History Graph Card with the following parameters (or not!):
 # Further Discussion
 
 The MQ135 must be powered on for 48 hours before first use.
+
+The MQ135 will need a few minutes for the heater to warm up enough to provide normal data any time it has been powered off.
+
+The digital threshhold can be set by adjusting the potentiometer to light the LED when the trigger concentration exists.
 
 The microcontroller analog input used for this project needs to be 10 bits because the MQ135 library uses the max value 1023 instead of Vcc in the calculation.
 
