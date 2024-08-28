@@ -56,7 +56,7 @@ The characteristic curve of the sensor shows that increasing ppm reduces sensor 
 
 The resistance of the sensor and the RL tied to A0 pin form a voltage divider whose voltage increases with increasing PPM (decreasing Rs). 
 
-The sensor resistance, connected to pins Vcc and A0, and the Load resistance, connected between pins A0 and GND, form a voltage divider between Vcc and GND whose midpoint is pin A0. 
+The circuit diagram is below.  The sensor resistance, connected to pins Vcc and A0, and the Load resistance, connected between pins A0 and GND, form a voltage divider between Vcc and GND whose midpoint is pin A0. 
 
 You can get feel for this by doing the folowing:
 
@@ -65,13 +65,13 @@ You can get feel for this by doing the folowing:
 2. Measure the load resistance between the A0 and GND pin.  Mine measures 1720 ohms (1.720 Kohm). You will need to enter the load resistance value in KOhms in the '#define RLOAD' statement in the 
  MQ135_Air_Quality.ino sotware.
 
-
 When the unit is powered up, the sensor resistance decreases as the concentration of detected gases (mostly CO2 under normal conditions) increases, causing the voltage across the load resistance at pin A0 to increase.  
 
 Additional board circuitry enables setting a potentiometer to determine the level at which the D0 pin and LED trigger.
 
 # Hardware Connections
 
+![image](https://github.com/Bobbo117/MQ135-Air-Quality-Sensor/blob/main/Images/Ckt%20Diagram.jpg)
 
 Use any arduino compatable controller you want - esp8266, esp32, or arduino board - by setting flags in the software.  I used the Lolin d1 mini esp8266.  The pinouts are shown below:
 
