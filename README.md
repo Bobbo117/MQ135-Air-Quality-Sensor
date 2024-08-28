@@ -14,9 +14,11 @@ d. Home Assistant via MQTT
 
 The MQ135 board has 4 pins: Vcc (5v), GND, A0 (Analog voltage), and D0 (digital signal).
 
+![image](https://github.com/user-attachments/assets/d0af170c-036d-4ee3-a305-74bce83af16a)
+
 It has several components, including the MQ135 sensor, a power LED, an alarm LED, a variable resistor to adjust the alarm level that triggers the alarm LED and the D0 pin, a Load Resistor (RL), as well as additional circuitry associated with the digital output.  
 
-![image](https://github.com/user-attachments/assets/be24d9ab-758d-421a-aa32-b21a0685b0c2) ![image](https://github.com/user-attachments/assets/d0af170c-036d-4ee3-a305-74bce83af16a)
+![image](https://github.com/user-attachments/assets/be24d9ab-758d-421a-aa32-b21a0685b0c2) 
 
 The digital pin goes low, and an alarm LED ligts, when the voltage exceeds the trigger level set by the potentiometer.
 
@@ -69,6 +71,7 @@ When the unit is powered up, the sensor resistance decreases as the concentratio
 Additional board circuitry enables setting a potentiometer to determine the level at which the D0 pin and LED trigger.
 
 # Hardware Connections
+
 
 Use any arduino compatable controller you want - esp8266, esp32, or arduino board - by setting flags in the software.  I used the Lolin d1 mini esp8266.  The pinouts are shown below:
 
