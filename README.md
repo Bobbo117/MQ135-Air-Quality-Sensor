@@ -12,13 +12,13 @@ d. Home Assistant via MQTT
 
 # MQ135 Air Quality Sensor Board
 
+The MQ135 board has 4 pins: Vcc (5v), GND, A0 (Analog voltage), and D0 (digital signal).
+
+It has several components, including the MQ135 sensor, a power LED, an alarm LED, a variable resistor to adjust the alarm level that triggers the alarm LED and the D0 pin, a Load Resistor (RL), as well as additional circuitry associated with the digital output.  
+
 ![image](https://github.com/user-attachments/assets/be24d9ab-758d-421a-aa32-b21a0685b0c2) ![image](https://github.com/user-attachments/assets/d0af170c-036d-4ee3-a305-74bce83af16a)
 
-The MQ135 board has several components, including the MQ135 sensor, a power LED, an alarm LED, a variable resistor to adjust the alarm level that triggers the alarm LED and the D0 pin, a Load Resistor (RL), as well as additional circuitry associated with the digital output.  
-
-The board has 4 pins:  Vcc (5v), GND, A0 (Analog voltage), and D0 (digital signal).  
-
-The digital signal is low when the voltage exceeds the trigger level set by the potentiometer.
+The digital pin goes low, and an alarm LED ligts, when the voltage exceeds the trigger level set by the potentiometer.
 
 # MQ135 Air Quality Sensor
 
@@ -151,12 +151,12 @@ The MQ135_Air_Quality.ino software incorporates the Arduino MQ135 library to per
 Examples of MQ135 measurements after calibration (Calibration outside conditions approximate the [CO2.Earth]([co2.earth](https://www.co2.earth/)) website. Inside conditions include 2 persons):
 
     Outside Maine - 75 F 63% RH 415 ppm
-    Maine Kithen - windows open 500 ppm
-    Maine Kithen - windows shut 600 ppm
-    Maine Kithen - oven on     1200 ppm   
+    Maine Kitchen - windows open 500 ppm
+    Maine Kitchen - windows shut 600 ppm
+    Maine Kitchen - oven on     1200 ppm   
     
-    Maine basement - quiet      650 ppm
-    Maine basement - humidex    600 ppm
+    Maine basement - quiet      600 ppm
+    Maine basement - humidex    550 ppm
 
 (Humidex is a device which draws air from the upstairs to expel damp air from the finished basement to the outside.)
     
