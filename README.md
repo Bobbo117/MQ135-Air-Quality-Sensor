@@ -54,9 +54,11 @@ Each board may be slightly different.  All resistance measurements in this discu
 
 The characteristic curve of the sensor shows that increasing ppm reduces sensor resistance.  
 
-The resistance of the sensor and the RL tied to A0 pin form a voltage divider whose voltage increases with increasing PPM (decreasing Rs). 
+The resistance of the sensor and the RL tied to A0 pin form a voltage divider whose voltage increases with increasing PPM (decreasing Rs):
 
-The circuit diagram is below.  The sensor resistance, connected to pins Vcc and A0, and the Load resistance, connected between pins A0 and GND, form a voltage divider between Vcc and GND whose midpoint is pin A0. 
+![image](https://github.com/Bobbo117/MQ135-Air-Quality-Sensor/blob/main/Images/SensorDiagram.jpg)
+
+The sensor resistance, connected to pins Vcc and A0, and the Load resistance, connected between pins A0 and GND, form a voltage divider between Vcc and GND whose midpoint is pin A0. 
 
 You can get feel for this by doing the folowing:
 
@@ -156,7 +158,7 @@ Examples of MQ135 measurements after calibration (Calibration outside conditions
     Outside Maine - 75 F 63% RH 415 ppm
     Maine Kitchen - windows open 500 ppm
     Maine Kitchen - windows shut 600 ppm
-    Maine Kitchen - oven on     1200 ppm   
+    Maine Kitchen - oven on      900 ppm   
     
     Maine basement - quiet      600 ppm
     Maine basement - humidex    550 ppm
@@ -187,9 +189,7 @@ The above two screenshots are from Home Assistant.  The same can be created on a
 
 # Scenario 2
 
-On August 14, the MQ135 was hovering around 16,000 and the Shark was indicating 78% (4, 18, & 21 ppm of pm1.0, pm2.5, & pm10 particles): 
-
-![a](https://github.com/Bobbo117/MQ135-Air-Quality-Sensor/blob/main/Images/HA%20AQI%2017K.jpg)
+On August 14, the MQ135 was hovering around 2,500 and the Shark was indicating 78% (4, 18, & 21 ppm of pm1.0, pm2.5, & pm10 particles).
 
 I checked the EPA's AirNow App and found outside AQI is 60 (moderate) due to wildfires. Cool!
 
