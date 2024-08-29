@@ -237,13 +237,15 @@ The microcontroller analog input used for this project needs to be 10 bits becau
 
 This project makes no effort to correct for temperature or humidity.
 
-How accurate are the MQ135 measurements?  I don't know.  Are they useful? I think so, because they reflect trends if not precise concentrations.
-
 # Observations
 
 CO2 tracking seems reasonable during clear days as indicated on the EPA's AirNow App.
 
 When the AirNow App indicates rising PM2.5 fine particles, the MQ135 response is dominated by these particles to the extent that there is no discernable sensitivity to varying CO2.
+
+# Conclusions
+
+How accurate are the MQ135 measurements?  I don't know.  Are they useful? I think so, because they reflect trends if not precise concentrations.
 
 # Someday:
 
