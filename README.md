@@ -18,9 +18,11 @@ The MQ135 board has 4 pins: Vcc (5v), GND, A0 (Analog voltage), and D0 (digital 
 
 It has several components, including the MQ135 sensor, a power LED, an alarm LED, a variable resistor to adjust the alarm level that triggers the alarm LED and the D0 pin, a Load Resistor (RL), as well as additional circuitry associated with the digital output.  
 
+The digital pin goes low, and an alarm LED lights, when the voltage exceeds the trigger level set by the potentiometer.
+
 ![image](https://github.com/user-attachments/assets/be24d9ab-758d-421a-aa32-b21a0685b0c2) 
 
-The digital pin goes low, and an alarm LED ligts, when the voltage exceeds the trigger level set by the potentiometer.
+The MQ135 sensot has an explosion shield for protection in case the internal heater creates unwanted artifacts.
 
 # MQ135 Air Quality Sensor
 
@@ -175,7 +177,7 @@ A little after 4:14 a.m., I got up to pee.  We see a bump in CO2 in the basement
 
 I tried to get back to sleep, but gave up around 4:48, when I went to the first floor to make coffee, creating another bump in CO2, then head back upstairs.  
 
-The humidex activated around that time, causing a steep reduction in ppm.
+The humidex activated around that time, causing a steep reduction in ppm, as seen in the timeline below:
 
 ![Coffee Humidex](https://github.com/Bobbo117/MQ135-Air-Quality-Sensor/blob/main/Images/HA%20AQI%20Coffee%20Humidex.jpg)
 
@@ -235,13 +237,19 @@ The microcontroller analog input used for this project needs to be 10 bits becau
 
 This project makes no effort to correct for temperature or humidity.
 
-Are the MQ135 measurements accurate?  I don't know.  Are they useful? I think so, because they reflect trends if not precise concentrations.  
+How accurate are the MQ135 measurements?  I don't know.  Are they useful? I think so, because they reflect trends if not precise concentrations.
+
+# Observations
+
+CO2 tracking seems reasonable during clear days as indicated on the EPA's AirNow App.
+
+When the AirNow App indicates rising PM2.5 fine particles, the MQ135 response is dominated by these particles to the extent that there is no discernable sensitivity to varying CO2.
 
 # Someday:
 
 Determine accuracy
     
-Integrate the MQ-2, 3, 4, 5, 6, 7, 8, 9 sensors
+Integrate the MQ-2, 3, 4, 5, 6, 7, 8, 9 sensors as appropriate to isolate specific gases
 
 # Attributions and References
 
